@@ -1,0 +1,24 @@
+Inspected the module and ran the suite without touching any files. Here's what's going on.
+
+**Price rules as coded**
+- `src/shipping.py:1` — `shipping_price(weight_kg)` has three tiers and one guard.
+- Negative weight raises `ValueError("weight must be nonnegative")`, `src/shipping.py:3`.
+- `weight_kg < 5` → `8`; `weight_kg < 10` → `12`; otherwise → `20`, `src/shipping.py:5-8`.
+- Verified values: 0 → 8, 4.99 → 8, **5 → 12**, 5.01 → 12, 9.99 → 12, 10 → 20, 10.01 → 20.
+
+**The 5 kg boundary**
+- Both comparisons are strict (`<`), so exactly 5 kg fails `5 < 5` and falls into the 12 tier.
+- `tests/test_shipping.py:7` asserts `shipping_price(5) == 8`, i.e. 5 kg is meant to be *inclusive* in the cheapest tier. Actual is 12 → mismatch.
+- Confirmed failure: `AssertionError: 12 != 8` at `tests/test_shipping.py:7`; `test_negative` passes (2 tests, 1 failure).
+- Caveat: the fix is asymmetric. `tests/test_shipping.py:10-11` wants 10 → 20 and 10.01 → 20, so the second threshold must stay `< 10` while the first becomes `<= 5`. Flipping both to `<=` would break the 10 kg assertion.
+
+**README vs tests**
+- `README.md:1-3` only states version `1.0.0` and the architecture (pure function + unittest coverage); it documents no tiers or boundaries.
+- So the README neither confirms nor contradicts the boundary — the tests are the only executable spec, and the code disagrees with them at exactly 5 kg.
+- `TASKS.md:3` labels this "the boundary bug in `src/shipping.py`", consistent with the finding.
+
+**Test-run note**
+- `python3 -m unittest` discovers 0 tests here because `tests/` has no `__init__.py`; I loaded the module directly instead: `python3 -c "import sys,unittest;sys.path.insert(0,'.');unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.loadTestsFromName('tests.test_shipping'))"`.
+- Also, only `python3` is on PATH in this environment (no `python`).
+
+Want me to apply the one-line fix (`weight_kg <= 5`) and re-run the suite?

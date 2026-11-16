@@ -1,0 +1,45 @@
+{
+  "status": "verified",
+  "workflows": [
+    {
+      "style": "3d",
+      "workflow": "/home/swchen/git/install_3080_llm/docs/research/workflows/minimax-h3-lcz3045-3d.json",
+      "resolution": [
+        1344,
+        768
+      ],
+      "reference_images": [
+        "jianxin-1.jpeg",
+        "jianxin-2.jpeg",
+        "jianxin-3.jpeg",
+        "zhizhixiong-1.jpeg",
+        "zhizhixiong-2.jpeg",
+        "zhizhixiong-3.jpeg"
+      ],
+      "frames": 294,
+      "steps": 20,
+      "seed": 261662374822964,
+      "save_prefix": "video/lcz3045_3d"
+    },
+    {
+      "style": "2d",
+      "workflow": "/home/swchen/git/install_3080_llm/docs/research/workflows/minimax-h3-lcz3045-2d.json",
+      "resolution": [
+        1344,
+        768
+      ],
+      "reference_images": [
+        "jianxin-1.jpeg",
+        "jianxin-2.jpeg",
+        "jianxin-3.jpeg",
+        "zhizhixiong-1.jpeg",
+        "zhizhixiong-2.jpeg",
+        "zhizhixiong-3.jpeg"
+      ],
+      "frames": 294,
+      "steps": 20,
+      "seed": 261662374822964,
+      "save_prefix": "video/lcz3045_2d"
+    }
+  ]
+}

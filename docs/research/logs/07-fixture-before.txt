@@ -1,0 +1,13 @@
+.F
+======================================================================
+FAIL: test_prices_and_boundary (test_shipping.ShippingTest.test_prices_and_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/swchen/git/install_3080_llm/codex/coding-fixtures/tests/test_shipping.py", line 7, in test_prices_and_boundary
+    self.assertEqual(shipping_price(5), 8)
+AssertionError: 12 != 8
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (failures=1)

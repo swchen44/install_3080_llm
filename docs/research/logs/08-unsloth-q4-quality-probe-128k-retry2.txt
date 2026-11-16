@@ -1,0 +1,1 @@
+{"model": "qwen3.8-flash-next-unsloth-ud-q4_k_xl", "configured_context_tokens": 131072, "actual_prompt_tokens": 124727, "score": 6, "score_max": 6, "elapsed_ms": 59001.134261001425, "correct_by_key": {"rollback_ticket": true, "archive_region": true, "queue_limit": true, "canary_owner": true, "schema_revision": true, "incident_checksum": true}, "parse_error": null}

@@ -1,0 +1,8 @@
+[strata] 2026-11-14 23:18:12 engine started: /home/swchen/git/install_3080_llm/local/components/engine/0.1.59-linux-x86_64-cuda-cuda12/strata --serve --pack /home/swchen/git/install_3080_llm/local/model-data/packs/iq2_xs --native /home/swchen/Downloads/ai/models/llm/bartowski/Qwen3.8-Flash-Next-GGUF/Qwen3.8-Flash-Next-IQ2_XS/Qwen3.8-Flash-Next-IQ2_XS-00001-of-00002.gguf --ple-gguf /home/swchen/Downloads/ai/models/llm/bartowski/Qwen3.8-Flash-Next-GGUF/Qwen3.8-Flash-Next-IQ2_XS/Qwen3.8-Flash-Next-IQ2_XS-00001-of-00002.gguf --expert-profile /home/swchen/git/install_3080_llm/local/strata-control/data/expert-profile.bin --expert-cache auto --prefill auto --spec 4 --max-context 4096 --ple-io ram
+strata: sm_86 (Ampere): 9 exact speed switches on by default (STRATA_SM86_PERF=0 turns them off; a switch you set is kept): ADAPT_NOWAIT ADAPT_LAG CPU_IQ_ALL_EXACT1 SIDE_MIXER ATTN_DAILY GR_UP75 GU_SWIGLU QSA_ROWS B6_MMVQ_ROWS
+strata: a model with K-quant experts (Unsloth UD-Q4/Q5/Q6_K_XL) reads its prompt on llama.cpp's MMQ kernels (STRATA_MMQ_KQ=0 or STRATA_NV_KQ_DEFAULT=0 turns it off)
+strata generate: NVIDIA: --prefill auto may take chunks up to 32768 (STRATA_NV_CHUNK=0 keeps 8192, =16 keeps 16384)
+strata generate: memory guard: limit 125.6 GiB (source: meminfo), current 4.0 GiB, reclaimable cache credited 0.0 GiB; available 121.6 GiB (MemAvailable 121.6 GiB), floor 2560 MiB
+strata generate: PCIe probe: 10.9 GB/s host->device (best of 10.8 10.9 10.9 10.9) -> pcie_frac 0.30 (default 0.55)
+strata generate: CPU expert kernels: AVX-2
+strata generate: native embedding: token_embd.weight is absent, of another shape, or of a type without a GPU dequantizer

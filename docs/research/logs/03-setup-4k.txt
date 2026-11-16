@@ -1,0 +1,44 @@
+Strata - Qwen3.8-Flash-Next on a normal PC (a GPU + system RAM + CPU)
+=== Step 1: checking your PC ===
+  [ok] GPU: NVIDIA GeForce RTX 3080, 20.0 GB VRAM, compute capability 8.6, driver 595.99.02
+  [ok] RAM: 126 GB
+  [ok] CPU: Intel(R) Xeon(R) CPU E5-2666 v3 @ 2.90GHz (AVX2)
+  [ok] PCIe: 3.0 x16 (the card supports 4.0, the board 3.0)
+=== Step 2: your choices ===
+  [ok] model: Qwen3.8-Flash-Next
+  1) Q2_0     2-bit, the fastest; download 66 GB, uses ~34 GB of RAM   <- fits
+  2) IQ2_XS   2-bit i-quant, a little better quality, close in speed; download 68 GB, uses ~36 GB of RAM   <- fits
+  3) IQ3_XXS  3-bit i-quant, better quality, slower (more CPU work per token); download 76 GB, uses ~43 GB of RAM   <- fits
+  4) IQ3_S    (recommended) 3.5-bit i-quant, the best quality (matches the full model), the slowest; needs a 64 GB PC with little else running; download 84 GB, uses ~50 GB of RAM   <- fits
+  [ok] size: IQ2_XS
+  [ok] context: 4096 tokens
+  [ok] images: off
+  [ok] experimental speed projection: off
+=== Step 3: Python packages ===
+  [ok] numpy, jinja2, regex, pyyaml, tqdm, requests, pillow, psutil, textual (the screens): bundled with the app
+=== Step 4: the Strata engine ===
+  llama.cpp source: only needed to prepare a model; it is downloaded then, if that is needed
+  [ok] engine component: 0.1.59 (linux-x86_64-cuda) in /home/swchen/git/install_3080_llm/local/components/engine/0.1.59-linux-x86_64-cuda-cuda12
+  [ok] engine: the engine component (looked up when the model loads)
+=== Step 5: downloading Qwen3.8-Flash-Next IQ2_XS ===
+  [ok] model files present
+=== Step 6: preparing the model for Strata ===
+  llama.cpp source:   0.01 / 0.04 GB (21%)
+  llama.cpp source:   0.02 / 0.04 GB (42%)
+  llama.cpp source:   0.03 / 0.04 GB (64%)
+  llama.cpp source:   0.03 / 0.04 GB (85%)
+  llama.cpp source:   0.04 / 0.04 GB (100%)
+  [ok] llama.cpp source downloaded
+  > /home/swchen/git/install_3080_llm/local/strata-control/python/bin/python3.12 /home/swchen/git/install_3080_llm/local/strata-control/tools/iq_pack.py --gguf /home/swchen/Downloads/ai/models/llm/bartowski/Qwen3.8-Flash-Next-GGUF/Qwen3.8-Flash-Next-IQ2_XS/Qwen3.8-Flash-Next-IQ2_XS-00001-of-00002.gguf --out /home/swchen/git/install_3080_llm/local/model-data/packs/iq2_xs
+model shards: Qwen3.8-Flash-Next-IQ2_XS-00001-of-00002.gguf, Qwen3.8-Flash-Next-IQ2_XS-00002-of-00002.gguf
+blk.0.hc_attn_down.weight is Q4_K, but the engine requires BF16; use --compat-bf16
+blk.0.hc_attn_up.weight is Q5_0, but the engine requires BF16; use --compat-bf16
+blk.0.hc_ffn_down.weight is Q4_K, but the engine requires BF16; use --compat-bf16
+blk.0.hc_ffn_up.weight is Q5_0, but the engine requires BF16; use --compat-bf16
+blk.1.hc_attn_down.weight is Q4_K, but the engine requires BF16; use --compat-bf16
+blk.1.hc_attn_up.weight is Q5_0, but the engine requires BF16; use --compat-bf16
+blk.1.hc_ffn_down.weight is Q4_K, but the engine requires BF16; use --compat-bf16
+blk.1.hc_ffn_up.weight is Q5_0, but the engine requires BF16; use --compat-bf16
+... and 186 more
+  [X]  command failed (exit 1): python3.12
+Setup stopped. Fix the item above and run it again - everything already done is kept and skipped.

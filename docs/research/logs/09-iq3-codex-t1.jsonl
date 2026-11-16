@@ -1,0 +1,4 @@
+Read `README.md` (3 lines, no edits, no network).
+
+- **Version** `1.0.0`
+- **Architecture** a small Python library with a pure shipping-price function plus `unittest` coverage

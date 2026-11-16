@@ -1,0 +1,10 @@
+**Change**
+- `src/shipping.py:5` — first tier condition `weight_kg < 5` → `weight_kg <= 5`, so exactly 5 kg now prices at 8 (previously fell into the 12 tier). One-character edit, no other files touched.
+
+**Resulting contract**
+- `[0, 5]` → 8, `(5, 10)` → 12, `[10, ∞)` → 20
+- Negative weights still raise `ValueError`.
+
+**Test run**
+- `python3 -m unittest discover -s tests` → `Ran 2 tests in 0.000s ... OK` (both `test_prices_and_boundary` and `test_negative` pass).
+- No network access used.

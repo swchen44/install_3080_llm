@@ -1,0 +1,18 @@
+{"levels": ["64k"], "execute": true, "generator_sha256": "e170db9b36913686f530f99400806edd97e22f631e7f8a1f9defc08e892a3144"}
+{"level": "64k", "phase": "warmup", "trial": 1, "started_at": "2026-11-15T08:23:15.814183+08:00", "model": "qwen3.8-flash-next-iq2_xs", "configured_context_tokens": 131072, "target_prompt_tokens": 62259, "max_new_tokens": 256, "prompt_sha256": "c6309a7d8ad7171f234ee4112fc5ebc8c748e326961edaf0714e4ad6c1431a58", "actual_prompt_tokens": 62276, "cached_tokens": 0, "completion_tokens": 256, "finish_reason": "length", "ttft_ms": 27392.6174369999, "first_answer_ms": 27392.620222000005, "total_ms": 30313.21689700053, "prefill_tps": 2281.8993598692623, "decode_tps": 87.0452227133628, "flags": [], "error": null, "xid": [], "gpu_vram_used_mib_peak": 19577.0, "gpu_vram_used_mib_avg": 19577.0, "gpu_util_pct_peak": 100.0, "gpu_util_pct_avg": 95.9, "gpu_temp_c_peak": 66.0, "gpu_temp_c_avg": 63.43333333333333, "gpu_power_w_peak": 317.51, "gpu_power_w_avg": 285.0763333333333, "gpu_sm_mhz_peak": 1950.0, "gpu_sm_mhz_avg": 1850.5, "gpu_memory_mhz_peak": 9251.0, "gpu_memory_mhz_avg": 9251.0, "ram_used_gib_peak": 43.35756301879883, "swap_used_gib_peak": 2.2263641357421875, "cpu_util_pct": 11.478807327182778, "cpu_mhz_avg": 1600.13445}
+Traceback (most recent call last):
+  File "/home/swchen/git/install_3080_llm/scripts/strata_longctx_bench.py", line 130, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/home/swchen/git/install_3080_llm/scripts/strata_longctx_bench.py", line 108, in main
+    r=send(args.url,model,text,cap,args.timeout); stop.set(); th.join(); flags=status(r,level,context,cap); xid=xid_since(started)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/swchen/git/install_3080_llm/scripts/strata_longctx_bench.py", line 22, in send
+    for raw in resp:
+  File "/usr/lib/python3.12/http/client.py", line 709, in readline
+    result = self.fp.readline(limit)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/socket.py", line 707, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

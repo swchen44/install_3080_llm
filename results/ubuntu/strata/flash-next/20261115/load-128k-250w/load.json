@@ -1,0 +1,87 @@
+{
+  "started_at": "2026-11-15T08:27:09.000385+08:00",
+  "ended_at": "2026-11-15T08:27:52.688709+08:00",
+  "elapsed_s": 43.688374396000654,
+  "return_code": 0,
+  "command": [
+    "/home/swchen/git/install_3080_llm/local/strata-control/bin/strata",
+    "launch",
+    "--family",
+    "qwen",
+    "--model",
+    "iq2_xs",
+    "--model-path",
+    "/home/swchen/git/install_3080_llm/local/ista-models/IQ2_XS",
+    "--data-dir",
+    "/home/swchen/git/install_3080_llm/local/ista-data",
+    "--context",
+    "128k",
+    "--kv",
+    "int8",
+    "--vision",
+    "off",
+    "--parallel",
+    "1",
+    "--access",
+    "local",
+    "--port",
+    "8080",
+    "--tune",
+    "skip",
+    "--drafting",
+    "off",
+    "--yes",
+    "--no-tui"
+  ],
+  "before": {
+    "cpu_jiffies_total": 11587953,
+    "cpu_jiffies_idle": 11430999,
+    "cpu_mhz_avg": 1412.3079500000001,
+    "cpu_mhz_min": 1197.285,
+    "cpu_mhz_max": 2893.463,
+    "time": "2026-11-15T08:27:08.963969+08:00",
+    "monotonic": 5801.599913054,
+    "ram_used_gib": 2.9978408813476562,
+    "ram_available_gib": 122.63492202758789,
+    "swap_used_gib": 0.155303955078125,
+    "gpus": [
+      {
+        "index": 0.0,
+        "vram_used_mib": 113.0,
+        "vram_total_mib": 20480.0,
+        "util_pct": 0.0,
+        "temp_c": 30.0,
+        "power_w": 14.9,
+        "sm_mhz": 210.0,
+        "memory_mhz": 405.0,
+        "power_limit_w": 250.0
+      }
+    ]
+  },
+  "after": {
+    "cpu_jiffies_total": 11675176,
+    "cpu_jiffies_idle": 11510413,
+    "cpu_mhz_avg": 1893.057,
+    "cpu_mhz_min": 1197.415,
+    "cpu_mhz_max": 3500.0,
+    "time": "2026-11-15T08:27:52.694031+08:00",
+    "monotonic": 5845.329970442,
+    "ram_used_gib": 40.9678840637207,
+    "ram_available_gib": 84.66487884521484,
+    "swap_used_gib": 0.15513229370117188,
+    "gpus": [
+      {
+        "index": 0.0,
+        "vram_used_mib": 19411.0,
+        "vram_total_mib": 20480.0,
+        "util_pct": 46.0,
+        "temp_c": 40.0,
+        "power_w": 139.53,
+        "sm_mhz": 1965.0,
+        "memory_mhz": 9251.0,
+        "power_limit_w": 250.0
+      }
+    ]
+  },
+  "note": "Warm filesystem cache possible; includes launcher preparation and readiness. Not disk-cold."
+}

@@ -1,0 +1,36 @@
+## Tracing `shipping_price` for the three weights
+
+The function in `src/shipping.py` uses three strict less-than comparisons:
+
+| Weight | Path through the branches | Price |
+|--------|--------------------------|-------|
+| 0 kg   | `0 < 5` → **True**       | **$8**  |
+| 5 kg   | `5 < 5` → False, `5 < 10` → **True** | **$12** |
+| 10 kg  | `10 < 5` → False, `10 < 10` → False, fall-through | **$20** |
+
+## The 5 kg boundary mismatch
+
+`tests/test_shipping.py:7` asserts `shipping_price(5) == 8`, expecting 5 kg to still fall in the cheapest tier. The code uses `weight_kg < 5` (strict), so 5 kg is **not** less than 5 and drops into the next tier, returning 12.
+
+```
+# src/shipping.py:4 — strict comparison puts 5 kg in the $12 tier
+if weight_kg < 5:
+```
+
+```
+# tests/test_shipping.py:7 — test expects 5 kg to be in the $8 tier
+self.assertEqual(shipping_price(5), 8)
+```
+
+Running the suite confirms the failure:
+
+```
+FAIL: test_prices_and_boundary
+  AssertionError: 12 != 8
+```
+
+**README** (`README.md`) describes the project at a high level but does not document any tier boundaries, so it neither confirms nor contradicts the tests.
+
+## Root cause
+
+If the intended business rule is "weights **up to and including** 5 kg cost $8" (as the test implies), the first guard should be `<= 5` (or equivalently, `< 5` should exclude exactly 5). Conversely, if the code's strict `<` is correct, the test expectation of 8 at exactly 5 kg is wrong and should be 12. Either way, code and test disagree; the README provides no tiebreaker.

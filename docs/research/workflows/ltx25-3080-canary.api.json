@@ -1,0 +1,599 @@
+{
+  "prompt": {
+    "75": {
+      "inputs": {
+        "filename_prefix": "video/ltx25-3080-canary",
+        "format": "auto",
+        "codec": "auto",
+        "video": [
+          "413",
+          0
+        ]
+      },
+      "class_type": "SaveVideo",
+      "_meta": {
+        "title": "\u4fdd\u5b58\u89c6\u9891"
+      }
+    },
+    "413": {
+      "inputs": {
+        "fps": [
+          "447",
+          0
+        ],
+        "bit_depth": 8,
+        "images": [
+          "424",
+          0
+        ],
+        "audio": [
+          "417",
+          0
+        ]
+      },
+      "class_type": "CreateVideo",
+      "_meta": {
+        "title": "\u521b\u5efa\u89c6\u9891"
+      }
+    },
+    "414": {
+      "inputs": {
+        "video_latent": [
+          "416",
+          0
+        ],
+        "audio_latent": [
+          "422",
+          1
+        ]
+      },
+      "class_type": "LTXVConcatAVLatent",
+      "_meta": {
+        "title": "LTXVConcatAVLatent"
+      }
+    },
+    "415": {
+      "inputs": {
+        "sigmas": "0.85, 0.7250, 0.4219, 0.0"
+      },
+      "class_type": "ManualSigmas",
+      "_meta": {
+        "title": "\u81ea\u5b9a\u4e49Sigmas"
+      }
+    },
+    "416": {
+      "inputs": {
+        "samples": [
+          "422",
+          0
+        ],
+        "upscale_model": [
+          "438",
+          0
+        ],
+        "vae": [
+          "440",
+          0
+        ]
+      },
+      "class_type": "LTXVLatentUpsampler",
+      "_meta": {
+        "title": "LTXV\u6f5c\u7a7a\u95f4\u4e0a\u91c7\u6837\u5668"
+      }
+    },
+    "417": {
+      "inputs": {
+        "samples": [
+          "423",
+          1
+        ],
+        "audio_vae": [
+          "441",
+          0
+        ]
+      },
+      "class_type": "LTXVAudioVAEDecode",
+      "_meta": {
+        "title": "LTXV\u97f3\u9891VAE\u89e3\u7801"
+      }
+    },
+    "418": {
+      "inputs": {
+        "sampler_name": "euler_ancestral"
+      },
+      "class_type": "KSamplerSelect",
+      "_meta": {
+        "title": "K\u91c7\u6837\u5668\u9009\u62e9"
+      }
+    },
+    "419": {
+      "inputs": {
+        "video_cfg": 1,
+        "audio_cfg": 1,
+        "model": [
+          "439",
+          0
+        ],
+        "positive": [
+          "430",
+          0
+        ],
+        "negative": [
+          "430",
+          1
+        ]
+      },
+      "class_type": "LTXVDualCFGGuider",
+      "_meta": {
+        "title": "LTXV Dual CFG Guider"
+      }
+    },
+    "420": {
+      "inputs": {
+        "noise": [
+          "421",
+          0
+        ],
+        "guider": [
+          "419",
+          0
+        ],
+        "sampler": [
+          "418",
+          0
+        ],
+        "sigmas": [
+          "415",
+          0
+        ],
+        "latent_image": [
+          "414",
+          0
+        ]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": {
+        "title": "\u81ea\u5b9a\u4e49\u91c7\u6837\u5668\uff08\u9ad8\u7ea7\uff09"
+      }
+    },
+    "421": {
+      "inputs": {
+        "noise_seed": 261662374822964
+      },
+      "class_type": "RandomNoise",
+      "_meta": {
+        "title": "\u968f\u673a\u566a\u6ce2"
+      }
+    },
+    "422": {
+      "inputs": {
+        "av_latent": [
+          "425",
+          0
+        ]
+      },
+      "class_type": "LTXVSeparateAVLatent",
+      "_meta": {
+        "title": "LTXV\u5206\u79bb\u97f3\u89c6\u9891\u6f5c\u7a7a\u95f4"
+      }
+    },
+    "423": {
+      "inputs": {
+        "av_latent": [
+          "420",
+          0
+        ]
+      },
+      "class_type": "LTXVSeparateAVLatent",
+      "_meta": {
+        "title": "LTXV\u5206\u79bb\u97f3\u89c6\u9891\u6f5c\u7a7a\u95f4"
+      }
+    },
+    "424": {
+      "inputs": {
+        "tile_size": 768,
+        "overlap": 64,
+        "temporal_size": 4096,
+        "temporal_overlap": 32,
+        "samples": [
+          "423",
+          0
+        ],
+        "vae": [
+          "440",
+          0
+        ]
+      },
+      "class_type": "VAEDecodeTiled",
+      "_meta": {
+        "title": "VAE\u89e3\u7801\uff08\u5206\u5757\uff09"
+      }
+    },
+    "425": {
+      "inputs": {
+        "noise": [
+          "429",
+          0
+        ],
+        "guider": [
+          "427",
+          0
+        ],
+        "sampler": [
+          "428",
+          0
+        ],
+        "sigmas": [
+          "426",
+          0
+        ],
+        "latent_image": [
+          "431",
+          0
+        ]
+      },
+      "class_type": "SamplerCustomAdvanced",
+      "_meta": {
+        "title": "\u81ea\u5b9a\u4e49\u91c7\u6837\u5668\uff08\u9ad8\u7ea7\uff09"
+      }
+    },
+    "426": {
+      "inputs": {
+        "sigmas": "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0"
+      },
+      "class_type": "ManualSigmas",
+      "_meta": {
+        "title": "\u81ea\u5b9a\u4e49Sigmas"
+      }
+    },
+    "427": {
+      "inputs": {
+        "video_cfg": 1,
+        "audio_cfg": 1,
+        "model": [
+          "439",
+          0
+        ],
+        "positive": [
+          "430",
+          0
+        ],
+        "negative": [
+          "430",
+          1
+        ]
+      },
+      "class_type": "LTXVDualCFGGuider",
+      "_meta": {
+        "title": "LTXV Dual CFG Guider"
+      }
+    },
+    "428": {
+      "inputs": {
+        "sampler_name": "euler_ancestral"
+      },
+      "class_type": "KSamplerSelect",
+      "_meta": {
+        "title": "K\u91c7\u6837\u5668\u9009\u62e9"
+      }
+    },
+    "429": {
+      "inputs": {
+        "noise_seed": 261662374822964
+      },
+      "class_type": "RandomNoise",
+      "_meta": {
+        "title": "\u968f\u673a\u566a\u6ce2"
+      }
+    },
+    "430": {
+      "inputs": {
+        "frame_rate": [
+          "447",
+          0
+        ],
+        "positive": [
+          "432",
+          0
+        ],
+        "negative": [
+          "433",
+          0
+        ]
+      },
+      "class_type": "LTXVConditioning",
+      "_meta": {
+        "title": "LTXV\u6761\u4ef6"
+      }
+    },
+    "431": {
+      "inputs": {
+        "video_latent": [
+          "434",
+          0
+        ],
+        "audio_latent": [
+          "435",
+          0
+        ]
+      },
+      "class_type": "LTXVConcatAVLatent",
+      "_meta": {
+        "title": "LTXVConcatAVLatent"
+      }
+    },
+    "432": {
+      "inputs": {
+        "text": [
+          "437",
+          0
+        ],
+        "clip": [
+          "442",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP\u6587\u672c\u7f16\u7801"
+      }
+    },
+    "433": {
+      "inputs": {
+        "text": "pc game, console game, video game, cartoon, childish, ugly,Subtitles",
+        "clip": [
+          "442",
+          0
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP\u6587\u672c\u7f16\u7801"
+      }
+    },
+    "434": {
+      "inputs": {
+        "width": [
+          "445",
+          1
+        ],
+        "height": [
+          "446",
+          1
+        ],
+        "length": [
+          "444",
+          1
+        ],
+        "batch_size": 1
+      },
+      "class_type": "EmptyLTXVLatentVideo",
+      "_meta": {
+        "title": "\u7a7aLatent\u89c6\u9891\uff08LTXV\uff09"
+      }
+    },
+    "435": {
+      "inputs": {
+        "frames_number": [
+          "444",
+          1
+        ],
+        "frame_rate": [
+          "447",
+          1
+        ],
+        "batch_size": 1,
+        "audio_vae": [
+          "441",
+          0
+        ]
+      },
+      "class_type": "LTXVEmptyLatentAudio",
+      "_meta": {
+        "title": "LTXV \u7a7a\u97f3\u9891\u6f5c\u7a7a\u95f4"
+      }
+    },
+    "437": {
+      "inputs": {
+        "switch": [
+          "454",
+          0
+        ],
+        "on_false": [
+          "452",
+          0
+        ],
+        "on_true": [
+          "452",
+          0
+        ]
+      },
+      "class_type": "ComfySwitchNode",
+      "_meta": {
+        "title": "\u5207\u6362"
+      }
+    },
+    "438": {
+      "inputs": {
+        "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+      },
+      "class_type": "LatentUpscaleModelLoader",
+      "_meta": {
+        "title": "\u52a0\u8f7dLatent\u653e\u5927\u6a21\u578b"
+      }
+    },
+    "439": {
+      "inputs": {
+        "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+        "weight_dtype": "default"
+      },
+      "class_type": "UNETLoader",
+      "_meta": {
+        "title": "UNet\u52a0\u8f7d\u5668"
+      }
+    },
+    "440": {
+      "inputs": {
+        "vae_name": "ltx-2.5-video-vae-bf16.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "\u52a0\u8f7dVAE"
+      }
+    },
+    "441": {
+      "inputs": {
+        "vae_name": "ltx-2.5-audio-vae-bf16.safetensors"
+      },
+      "class_type": "VAELoader",
+      "_meta": {
+        "title": "\u52a0\u8f7dVAE"
+      }
+    },
+    "442": {
+      "inputs": {
+        "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+        "type": "ltxv",
+        "device": "default"
+      },
+      "class_type": "CLIPLoader",
+      "_meta": {
+        "title": "\u52a0\u8f7dCLIP"
+      }
+    },
+    "444": {
+      "inputs": {
+        "expression": "a * b + 1",
+        "values.a": [
+          "450",
+          0
+        ],
+        "values.b": [
+          "449",
+          0
+        ]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": {
+        "title": "Math Expression (length)"
+      }
+    },
+    "445": {
+      "inputs": {
+        "expression": "a/2",
+        "values.a": [
+          "451",
+          0
+        ]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": {
+        "title": "\u6570\u5b66\u8868\u8fbe\u5f0f"
+      }
+    },
+    "446": {
+      "inputs": {
+        "expression": "a/2",
+        "values.a": [
+          "448",
+          0
+        ]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": {
+        "title": "\u6570\u5b66\u8868\u8fbe\u5f0f"
+      }
+    },
+    "447": {
+      "inputs": {
+        "expression": "a",
+        "values.a": [
+          "449",
+          0
+        ]
+      },
+      "class_type": "ComfyMathExpression",
+      "_meta": {
+        "title": "Math Expression (fps)"
+      }
+    },
+    "448": {
+      "inputs": {
+        "value": [
+          "456",
+          0
+        ]
+      },
+      "class_type": "PrimitiveInt",
+      "_meta": {
+        "title": "Height"
+      }
+    },
+    "449": {
+      "inputs": {
+        "value": 24
+      },
+      "class_type": "PrimitiveInt",
+      "_meta": {
+        "title": "Frame Rate"
+      }
+    },
+    "450": {
+      "inputs": {
+        "value": 2
+      },
+      "class_type": "PrimitiveInt",
+      "_meta": {
+        "title": "Duration"
+      }
+    },
+    "451": {
+      "inputs": {
+        "value": [
+          "455",
+          0
+        ]
+      },
+      "class_type": "PrimitiveInt",
+      "_meta": {
+        "title": "Width"
+      }
+    },
+    "452": {
+      "inputs": {
+        "value": "A cinematic 3D animation of a red-haired swordsman in red robes facing a bandaged warrior in purple. They exchange a swift sword strike, orange sparks flying, dramatic lighting and embers. Sound of clashing swords and wind."
+      },
+      "class_type": "PrimitiveStringMultiline",
+      "_meta": {
+        "title": "Prompt"
+      }
+    },
+    "454": {
+      "inputs": {
+        "value": false
+      },
+      "class_type": "PrimitiveBoolean",
+      "_meta": {
+        "title": "Boolean (Enable Prompt Enhance)"
+      }
+    },
+    "455": {
+      "inputs": {
+        "value": 512
+      },
+      "class_type": "PrimitiveInt",
+      "_meta": {
+        "title": "width"
+      }
+    },
+    "456": {
+      "inputs": {
+        "value": 320
+      },
+      "class_type": "PrimitiveInt",
+      "_meta": {
+        "title": "height"
+      }
+    }
+  }
+}

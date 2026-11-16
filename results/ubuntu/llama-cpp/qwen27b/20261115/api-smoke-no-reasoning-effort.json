@@ -1,0 +1,51 @@
+{
+  "request": {
+    "model": "/home/swchen/Downloads/ai/models/llm/others/Qwen3.8-27B/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "messages": [
+      {
+        "role": "user",
+        "content": "請用繁體中文回答：5公斤的運費是什麼？"
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 128,
+    "reasoning_effort": "none",
+    "stream": false
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "length",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "「5公斤的運費」並不是一個固定的金額，它是指**寄送重量為 5 公斤（或首重加續重總計達 5 公斤）的包裹時，物流業者所收取的費用**。\n\n具體金額會因以下因素而有很大差異：\n\n### 影響運費的關鍵因素：\n1. **物流業者**：不同公司（如黑貓、郵局、新竹物流、宅配通、快遞公司等）定價不同。\n2. **寄送方式**：\n   - **宅配**（送貨上門）：通常較貴。\n   - **超商取"
+        }
+      }
+    ],
+    "created": 1794711576,
+    "model": "/home/swchen/Downloads/ai/models/llm/others/Qwen3.8-27B/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "system_fingerprint": "b12375-9d25e0014",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 128,
+      "prompt_tokens": 24,
+      "total_tokens": 152,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-akpfrBuxOeSC6DjmjK4dvtTaVB7VjgCu",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 24,
+      "prompt_ms": 148.795,
+      "prompt_per_token_ms": 6.199791666666666,
+      "prompt_per_second": 161.29574246446455,
+      "predicted_n": 128,
+      "predicted_ms": 3489.139,
+      "predicted_per_token_ms": 27.473535433070868,
+      "predicted_per_second": 36.39866454159608
+    }
+  }
+}

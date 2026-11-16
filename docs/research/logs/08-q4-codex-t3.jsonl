@@ -1,0 +1,9 @@
+Fixed the off-by-one at the 5 kg tier boundary.
+
+**Change**
+- `src/shipping.py:5` — `if weight_kg < 5:` → `if weight_kg <= 5:`, so exactly 5 kg costs 8 (test requires `shipping_price(5) == 8`) while 5.01 still yields 12.
+- Single-character change; no other files touched, no network used.
+
+**Test result**
+- `python3 -m unittest discover -s tests` → `Ran 2 tests in 0.000s ... OK` (both `test_prices_and_boundary` and `test_negative` pass).
+- The 10 kg boundary already matched the contract (`< 10` for 12, else 20), so it needed no change.

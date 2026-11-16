@@ -1,0 +1,17 @@
+    Checking the engine for this computer…
+    Engine 0.1.59 (cuda) is installed.
+    Preparing Qwen3.8-Flash-Next IQ2_XS from your model files…
+    Getting your model ready
+    Checking your computer
+    Getting the helper packages ready
+    Checking the engine for this PC
+    Getting the model files
+    The model files are on this computer; checking them
+    Preparing your model for Strata (one time)
+    Preparing the draft layer
+    Saving the model's settings
+    Qwen3.8-Flash-Next IQ2_XS is ready.
+    Writing this launch's settings…
+    Settings are saved.
+    Starting the engine and loading the model. The first start can take a few minutes.
+strata: The engine stopped while it was loading the model (exit code 1): strata generate: native embedding: token_embd.weight is absent, of another shape, or of a type without a GPU dequantizer. Run it again; if it repeats, report the log. The engine's log: /home/swchen/.local/state/strata/launch/iq2_xs-4k.engine.log

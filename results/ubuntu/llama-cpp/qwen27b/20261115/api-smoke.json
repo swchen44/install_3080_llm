@@ -1,0 +1,51 @@
+{
+  "request": {
+    "model": "/home/swchen/Downloads/ai/models/llm/others/Qwen3.8-27B/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "messages": [
+      {
+        "role": "user",
+        "content": "請用繁體中文回答：5公斤的運費是什麼？"
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 64,
+    "stream": false
+  },
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "length",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "reasoning_content": "使用者問「5公斤的運費是什麼？」，需要用繁體中文回答。問題很模糊：運費取決於寄件地、收件地、快遞公司、包裹尺寸/體積重、服務類型、保價、是否超規等。需要說明無法只憑重量計算，並列出常見影響"
+        }
+      }
+    ],
+    "created": 1794711541,
+    "model": "/home/swchen/Downloads/ai/models/llm/others/Qwen3.8-27B/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "system_fingerprint": "b12375-9d25e0014",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 64,
+      "prompt_tokens": 64,
+      "total_tokens": 128,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-rlPKd6hTSalYClIErCjyOinMNZ18nsg3",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 64,
+      "prompt_ms": 396.845,
+      "prompt_per_token_ms": 6.200703125,
+      "prompt_per_second": 161.2720331615618,
+      "predicted_n": 64,
+      "predicted_ms": 1738.018,
+      "predicted_per_token_ms": 27.587587301587302,
+      "predicted_per_second": 36.2481861522723
+    }
+  }
+}

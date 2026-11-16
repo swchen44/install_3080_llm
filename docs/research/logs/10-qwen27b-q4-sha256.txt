@@ -1,0 +1,1 @@
+1bce504dfecd84153666928a41d8a66706f0158d3a317bc5196b72819d7dc529  /home/swchen/Downloads/ai/models/llm/others/Qwen3.8-27B/Qwen3.8-27B-UD-Q4_K_M.gguf

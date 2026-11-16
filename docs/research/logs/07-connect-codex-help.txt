@@ -1,0 +1,45 @@
+usage: strata connect [-h] [--url URL] [--key KEY] [--key-env NAME]
+                      [--model NAME] [--context SIZE] [--preset NAME]
+                      [--check] [--write] [--yes] [--show-key]
+                      [--output {human,json}]
+                      [harness]
+
+Shows the settings file and environment an app needs to talk to the Strata server that `strata launch` started. Without a name it lists the apps. With --write it writes the file after asking, keeping a backup of any file it replaces.
+
+positional arguments:
+  harness               opencode, codex, claude-code, omp, pi, hermes,
+                        openclaw, deepseek-harness
+
+options:
+  -h, --help            show this help message and exit
+  --url URL             the server address (default: the running launch, else
+                        http://127.0.0.1:8080)
+  --key KEY             the API key (default: the running launch's)
+  --key-env NAME        read the key from this environment variable
+  --model NAME          the model name the server reports (default: the
+                        running launch's)
+  --context SIZE        the context the server was started with (default: the
+                        running launch's, else 32k)
+  --preset NAME         take the address, key and model from this saved preset
+  --check               send one prompt and one tool call to the running
+                        server the way this app would, and say if each worked
+  --write               write the file(s), after asking; a replaced file is
+                        backed up first
+  --yes                 do not ask before --write
+  --show-key            print the real key instead of a masked one
+  --output {human,json}
+
+examples:
+  strata launch                                    open the guided screens (saved presets, then set up from the beginning)
+  strata launch --preset "IQ3_XXS 128K"            start a saved preset (opens the monitor)
+  strata launch --model iq3_xxs --context 128k --parallel 4 --vision off --tune quick \
+                --access lan --port 8080 --save-preset "Office" --no-tui
+                                                   set everything on the command line, serve, print the address
+  strata launch --model-path /data/models/IQ3_XXS --no-tui
+                                                   use model files you already have (a folder or one .gguf)
+  strata launch --preset Office --set prefill=65536 --set STRATA_PIN_BY_NEED=1 --no-tui
+                                                   change one advanced setting for this start
+  strata launch --plan --model q2_0                show what would happen, change nothing
+  strata launch --list-presets | --delete-preset NAME | --status | --stop [--preset NAME]
+  strata connect                                   list the apps Strata can be connected to
+  strata connect opencode --write                  write OpenCode's config for the running server (keeps a backup)

@@ -1,0 +1,33 @@
+{
+  "cpu_jiffies_total": 29936289,
+  "cpu_jiffies_idle": 28675413,
+  "cpu_mhz_avg": 1498.7363,
+  "cpu_mhz_min": 1197.137,
+  "cpu_mhz_max": 3500.0,
+  "time": "2026-11-15T11:00:28.524005+08:00",
+  "monotonic": 15001.159938302,
+  "ram_used_gib": 3.84796142578125,
+  "ram_available_gib": 121.7848014831543,
+  "swap_used_gib": 0.5620651245117188,
+  "engine_processes": [
+    {
+      "pid": 39262,
+      "name": "llama-server",
+      "rss_gib": 1.8948593139648438,
+      "swap_gib": 0.0
+    }
+  ],
+  "gpus": [
+    {
+      "index": 0.0,
+      "vram_used_mib": 15615.0,
+      "vram_total_mib": 20480.0,
+      "util_pct": 0.0,
+      "temp_c": 30.0,
+      "power_w": 19.34,
+      "sm_mhz": 210.0,
+      "memory_mhz": 405.0,
+      "power_limit_w": 250.0
+    }
+  ]
+}

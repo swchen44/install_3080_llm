@@ -1,0 +1,4 @@
+acc44040f74d0e55fb89c3967056cce5dbda1bcc52e909c3ba6fc72b5e9c0858  /home/swchen/Downloads/ai/models/llm/unsloth/Qwen3.8-Flash-Next-GGUF/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00001-of-00004.gguf
+45792ae869072d8229384c51c7c73dd959e191505252b41dd71852d9746f5ce4  /home/swchen/Downloads/ai/models/llm/unsloth/Qwen3.8-Flash-Next-GGUF/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00002-of-00004.gguf
+8c76e79d444b16a663d9c8db54e585ed3b1da13eebd2619c37b0c355da803c82  /home/swchen/Downloads/ai/models/llm/unsloth/Qwen3.8-Flash-Next-GGUF/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00003-of-00004.gguf
+5de8b5dbf89409acc39468decafd4a4a95b13c29d88a14b0356107897829ec36  /home/swchen/Downloads/ai/models/llm/unsloth/Qwen3.8-Flash-Next-GGUF/UD-Q4_K_XL/Qwen3.8-Flash-Next-UD-Q4_K_XL-00004-of-00004.gguf

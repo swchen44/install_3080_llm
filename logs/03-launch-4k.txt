@@ -1,0 +1,12 @@
+    Checking the engine for this computer…
+    Engine 0.1.59 (cuda) is installed.
+    Preparing Qwen3.8-Flash-Next IQ2_XS from your model files…
+    Getting your model ready
+    Checking your computer
+    Getting the helper packages ready
+    Checking the engine for this PC
+    Getting the model files
+    The model files are on this computer; checking them
+    Preparing your model for Strata (one time)
+    Preparing the model data for the engine (one time)
+strata: The model could not be installed. Command failed (exit 1): python3.12. Run it again: finished steps are skipped. Details: /home/swchen/.local/state/strata/launch/iq2_xs-4k.setup.log

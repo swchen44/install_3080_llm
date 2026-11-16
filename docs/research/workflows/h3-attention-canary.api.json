@@ -1,0 +1,287 @@
+{
+  "prompt": {
+    "92": {
+      "class_type": "SaveVideo",
+      "inputs": {
+        "filename_prefix": "video/h3-attention-minimax-h3-lcz3045-3d",
+        "format": "auto",
+        "codec": "auto",
+        "video": [
+          "130",
+          0
+        ]
+      }
+    },
+    "115": {
+      "class_type": "ResolutionSelector",
+      "inputs": {
+        "aspect_ratio": "16:9 (Widescreen)",
+        "megapixels": 0.2,
+        "multiple": 32
+      }
+    },
+    "119": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+      }
+    },
+    "120": {
+      "class_type": "VAELoader",
+      "inputs": {
+        "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+      }
+    },
+    "121": {
+      "class_type": "VAEDecodeAudio",
+      "inputs": {
+        "vae": [
+          "120",
+          0
+        ],
+        "samples": [
+          "125",
+          0
+        ]
+      }
+    },
+    "122": {
+      "class_type": "VAEDecode",
+      "inputs": {
+        "vae": [
+          "119",
+          0
+        ],
+        "samples": [
+          "125",
+          0
+        ]
+      }
+    },
+    "123": {
+      "class_type": "KSamplerSelect",
+      "inputs": {
+        "sampler_name": "res_multistep"
+      }
+    },
+    "124": {
+      "class_type": "BasicScheduler",
+      "inputs": {
+        "scheduler": "simple",
+        "steps": [
+          "143",
+          0
+        ],
+        "denoise": 1,
+        "model": [
+          "127",
+          0
+        ]
+      }
+    },
+    "125": {
+      "class_type": "SamplerCustomAdvanced",
+      "inputs": {
+        "noise": [
+          "129",
+          0
+        ],
+        "guider": [
+          "126",
+          0
+        ],
+        "sampler": [
+          "123",
+          0
+        ],
+        "sigmas": [
+          "124",
+          0
+        ],
+        "latent_image": [
+          "136",
+          1
+        ]
+      }
+    },
+    "126": {
+      "class_type": "BasicGuider",
+      "inputs": {
+        "conditioning": [
+          "136",
+          0
+        ],
+        "model": [
+          "127",
+          0
+        ]
+      }
+    },
+    "127": {
+      "class_type": "UNETLoader",
+      "inputs": {
+        "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    "128": {
+      "class_type": "CLIPLoader",
+      "inputs": {
+        "clip_name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+        "type": "minimax",
+        "device": "default"
+      }
+    },
+    "129": {
+      "class_type": "RandomNoise",
+      "inputs": {
+        "noise_seed": 261662374822965,
+        "control_after_generate": "fixed"
+      }
+    },
+    "130": {
+      "class_type": "CreateVideo",
+      "inputs": {
+        "fps": 24,
+        "bit_depth": 8,
+        "images": [
+          "122",
+          0
+        ],
+        "audio": [
+          "121",
+          0
+        ]
+      }
+    },
+    "131": {
+      "class_type": "ComfyMathExpression",
+      "inputs": {
+        "expression": "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17",
+        "values.a": [
+          "132",
+          0
+        ]
+      }
+    },
+    "132": {
+      "class_type": "PrimitiveFloat",
+      "inputs": {
+        "value": 2.0
+      }
+    },
+    "136": {
+      "class_type": "MiniMaxH3ReferenceToVideo",
+      "inputs": {
+        "prompt": [
+          "138",
+          0
+        ],
+        "width": [
+          "115",
+          0
+        ],
+        "height": [
+          "115",
+          1
+        ],
+        "length": [
+          "131",
+          1
+        ],
+        "ref_image_size": "match",
+        "clip": [
+          "128",
+          0
+        ],
+        "vae": [
+          "119",
+          0
+        ],
+        "audio_vae": [
+          "120",
+          0
+        ],
+        "ref_images.ref_image_0": [
+          "137",
+          0
+        ],
+        "ref_images.ref_image_1": [
+          "139",
+          0
+        ],
+        "ref_images.ref_image_2": [
+          "147",
+          0
+        ],
+        "ref_images.ref_image_3": [
+          "148",
+          0
+        ],
+        "ref_images.ref_image_4": [
+          "149",
+          0
+        ],
+        "ref_images.ref_image_5": [
+          "150",
+          0
+        ]
+      }
+    },
+    "137": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "lcz3045/jianxin-1.jpeg",
+        "upload": "image"
+      }
+    },
+    "138": {
+      "class_type": "PrimitiveStringMultiline",
+      "inputs": {
+        "value": "(Style: 3D CGI animation) Masterpiece, high quality, cinematic lighting.\nSubject: A fierce battle sequence featuring two characters based on the reference images\u2014a red-clad swordsman (Jianxin) and a purple-robed warrior (Zhizhixiong).\nAction: The camera begins with a dynamic low-angle tracking shot. The swordsman in red dashes forward with a long sword, leaving a glowing trail, while the warrior in purple stands firm and executes a sweeping counter-attack with a flaming effect. They clash in the center of the frame, creating a shockwave of energy and sparks.\nThe camera rapidly orbits around them as the fiery battle intensifies, concluding with the red-clad swordsman landing gracefully while the purple warrior points his weapon forward, both facing the camera.\nEnvironment: Dramatic background with embers floating in the air, high contrast lighting."
+      }
+    },
+    "139": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "lcz3045/jianxin-2.jpeg",
+        "upload": "image"
+      }
+    },
+    "143": {
+      "class_type": "PrimitiveInt",
+      "inputs": {
+        "value": 20,
+        "fixed": "fixed"
+      }
+    },
+    "147": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "lcz3045/jianxin-3.jpeg",
+        "upload": "image"
+      }
+    },
+    "148": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "lcz3045/zhizhixiong-1.jpeg",
+        "upload": "image"
+      }
+    },
+    "149": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "lcz3045/zhizhixiong-2.jpeg",
+        "upload": "image"
+      }
+    },
+    "150": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "lcz3045/zhizhixiong-3.jpeg",
+        "upload": "image"
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "started_at": "2026-11-15T09:44:12.764947+08:00",
+  "ended_at": "2026-11-15T09:53:37.053975+08:00",
+  "elapsed_s": 564.2892124230002,
+  "return_code": 0,
+  "command": [
+    "/home/swchen/git/install_3080_llm/local/strata-control/bin/strata",
+    "launch",
+    "--family",
+    "unsloth",
+    "--model",
+    "ud-q4_k_xl",
+    "--model-path",
+    "/home/swchen/Downloads/ai/models/llm/unsloth/Qwen3.8-Flash-Next-GGUF/UD-Q4_K_XL",
+    "--data-dir",
+    "/home/swchen/git/install_3080_llm/local/unsloth-data",
+    "--context",
+    "4k",
+    "--kv",
+    "int8",
+    "--vision",
+    "off",
+    "--parallel",
+    "1",
+    "--access",
+    "local",
+    "--port",
+    "8080",
+    "--tune",
+    "skip",
+    "--drafting",
+    "off",
+    "--set",
+    "STRATA_ROUTE_TAIL_SKIP=0",
+    "--set",
+    "STRATA_PREFILL_CPU_SHARE=0",
+    "--yes",
+    "--no-tui"
+  ],
+  "before": {
+    "cpu_jiffies_total": 20814492,
+    "cpu_jiffies_idle": 20255387,
+    "cpu_mhz_avg": 1497.3715,
+    "cpu_mhz_min": 1197.118,
+    "cpu_mhz_max": 3500.0,
+    "time": "2026-11-15T09:44:12.649607+08:00",
+    "monotonic": 10425.285548823,
+    "ram_used_gib": 2.8209915161132812,
+    "ram_available_gib": 122.81177139282227,
+    "swap_used_gib": 0.3174934387207031,
+    "engine_processes": [],
+    "gpus": [
+      {
+        "index": 0.0,
+        "vram_used_mib": 113.0,
+        "vram_total_mib": 20480.0,
+        "util_pct": 0.0,
+        "temp_c": 28.0,
+        "power_w": 14.23,
+        "sm_mhz": 210.0,
+        "memory_mhz": 405.0,
+        "power_limit_w": 250.0
+      }
+    ]
+  },
+  "after": {
+    "cpu_jiffies_total": 21938441,
+    "cpu_jiffies_idle": 21308295,
+    "cpu_mhz_avg": 2189.35845,
+    "cpu_mhz_min": 1200.0,
+    "cpu_mhz_max": 3500.0,
+    "time": "2026-11-15T09:53:37.071258+08:00",
+    "monotonic": 10989.707187613,
+    "ram_used_gib": 77.5624008178711,
+    "ram_available_gib": 48.07036209106445,
+    "swap_used_gib": 1.2366104125976562,
+    "engine_processes": [
+      {
+        "pid": 24333,
+        "rss_gib": 73.35746765136719,
+        "swap_gib": 0.4225006103515625
+      }
+    ],
+    "gpus": [
+      {
+        "index": 0.0,
+        "vram_used_mib": 19446.0,
+        "vram_total_mib": 20480.0,
+        "util_pct": 0.0,
+        "temp_c": 35.0,
+        "power_w": 138.87,
+        "sm_mhz": 1980.0,
+        "memory_mhz": 9251.0,
+        "power_limit_w": 250.0
+      }
+    ]
+  },
+  "note": "Warm filesystem cache possible; includes launcher preparation and readiness. Not disk-cold."
+}

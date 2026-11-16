@@ -1,0 +1,14 @@
+2026-11-16T05:42:38.281457+08:00 START diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors 21504034224
+2026-11-16T05:44:10.016814+08:00 START diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors 21504034224
+Error while downloading from https://huggingface.co/Lightricks/LTX-2.5/resolve/49b093a39c19169a8a81721dcc541e07e945232f/diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors: The read operation timed out
+Trying to resume download...
+2026-11-16T11:23:46.192491+08:00 VERIFIED diffusion_models/ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors c4279eeff115cbeaca494bd2183e7d768c38fe85a184dc6afbb7159157c44334
+2026-11-16T11:23:46.192556+08:00 START latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors 995778752
+2026-11-16T11:38:10.170532+08:00 VERIFIED latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors eb5a71fe4068ee87ccdb1c3aa635e547ca76bd2d30ae20ae889f2c325c0677e8
+2026-11-16T11:38:10.170610+08:00 START text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors 15372969374
+2026-11-16T15:56:02.918166+08:00 VERIFIED text_encoders/gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors 6ce688a0aa98a5fa36a9f1e6c3f42152a498cc2b53ee8c15674c64244f91487f
+2026-11-16T15:56:02.918232+08:00 START vae/ltx-2.5-audio-vae-bf16.safetensors 364866540
+2026-11-16T16:01:17.114412+08:00 VERIFIED vae/ltx-2.5-audio-vae-bf16.safetensors c52733d37f6a7fb7949c3dc0fb468c6cb2169e4d836983a73babb9f0d54837a5
+2026-11-16T16:01:17.114477+08:00 START vae/ltx-2.5-video-vae-bf16.safetensors 1472223346
+2026-11-16T16:25:03.590413+08:00 VERIFIED vae/ltx-2.5-video-vae-bf16.safetensors 847e14ca7f3355debca0cea4eaa24ac0fbcdf0061da054ac89ca638a869ddba3
+ALL VERIFIED

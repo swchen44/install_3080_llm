@@ -1,0 +1,32 @@
+{
+  "cpu_jiffies_total": 13727526,
+  "cpu_jiffies_idle": 13421188,
+  "cpu_mhz_avg": 1406.8898,
+  "cpu_mhz_min": 1197.304,
+  "cpu_mhz_max": 2893.493,
+  "time": "2026-11-15T08:45:03.030892+08:00",
+  "monotonic": 6875.666825415,
+  "ram_used_gib": 54.786075592041016,
+  "ram_available_gib": 70.84668731689453,
+  "swap_used_gib": 0.3314704895019531,
+  "engine_processes": [
+    {
+      "pid": 13812,
+      "rss_gib": 78.12329864501953,
+      "swap_gib": 0.0
+    }
+  ],
+  "gpus": [
+    {
+      "index": 0.0,
+      "vram_used_mib": 19430.0,
+      "vram_total_mib": 20480.0,
+      "util_pct": 0.0,
+      "temp_c": 35.0,
+      "power_w": 86.95,
+      "sm_mhz": 1710.0,
+      "memory_mhz": 9251.0,
+      "power_limit_w": 250.0
+    }
+  ]
+}

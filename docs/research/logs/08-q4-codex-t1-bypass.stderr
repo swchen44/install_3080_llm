@@ -1,0 +1,27 @@
+Reading additional input from stdin...
+OpenAI Codex v0.169.0
+--------
+workdir: /home/swchen/git/install_3080_llm/local/codex-fixture-q4
+model: qwen3.8-flash-next-unsloth-ud-q4_k_xl
+provider: strata
+approval: never
+sandbox: danger-full-access
+reasoning effort: medium
+reasoning summaries: auto
+session id: 01a1dd0e-7567-7b52-825f-80f60178ac72
+--------
+user
+Read README.md and report its version and architecture in two short bullets. Do not edit files or use the network.
+warning: Model metadata for `qwen3.8-flash-next-unsloth-ud-q4_k_xl` not found. Defaulting to fallback metadata; this can degrade performance and cause issues.
+exec
+/bin/bash -lc 'cat README.md' in /home/swchen/git/install_3080_llm/local/codex-fixture-q4
+ succeeded in 0ms:
+# Parcel math
+Version: 1.0.0
+Architecture: a small Python library with a pure shipping-price function and unittest coverage.
+
+codex
+- **Version**: 1.0.0
+- **Architecture**: A small Python library with a pure shipping-price function and unittest coverage.
+tokens used
+8,779

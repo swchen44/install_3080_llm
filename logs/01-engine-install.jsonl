@@ -1,0 +1,6 @@
+{"schema_version": 1, "event": "phase", "phase": "verify", "message": "Unpacking the engine file", "component": "engine"}
+{"schema_version": 1, "event": "phase", "phase": "verify", "message": "Checking the package signature and every file", "component": "engine"}
+{"schema_version": 1, "event": "phase", "phase": "test", "message": "Test-starting engine 0.1.59 linux-x86_64-cuda-cuda12 before switching to it", "component": "engine"}
+{"schema_version": 1, "event": "phase", "phase": "switch", "message": "Switching to engine 0.1.59 linux-x86_64-cuda-cuda12", "component": "engine"}
+{"schema_version": 1, "event": "phase", "phase": "done", "message": "Engine 0.1.59 is installed and will be used on the next start", "component": "engine"}
+{"schema_version": 1, "ok": true, "component": "engine", "status": "updated", "installed_before": null, "changed": true, "source": "file", "installed_after": {"version": "0.1.59", "platform": "linux-x86_64", "backend": "cuda", "variant": "cuda12", "build_id": "712fec6b4297+cuda12.9", "folder": "0.1.59-linux-x86_64-cuda-cuda12", "signed": true}, "test_start": {"mode": "binary-only", "detail": "no model is installed yet, so the engine was run with --version only", "output": "strata 0.1.59"}, "previous": null, "removed": [], "presets_marked": false}

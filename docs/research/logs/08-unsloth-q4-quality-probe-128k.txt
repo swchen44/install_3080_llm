@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/swchen/git/install_3080_llm/scripts/long_context_quality_probe.py", line 101, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/home/swchen/git/install_3080_llm/scripts/long_context_quality_probe.py", line 69, in main
+    response, elapsed = request(args.url, model, prompt, 1, args.timeout)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/swchen/git/install_3080_llm/scripts/long_context_quality_probe.py", line 39, in request
+    with urllib.request.urlopen(req, timeout=timeout) as response: result = json.load(response)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request

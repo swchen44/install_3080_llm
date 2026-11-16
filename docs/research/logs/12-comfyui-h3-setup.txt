@@ -1,0 +1,655 @@
+# MiniMax H3 local ComfyUI setup progress
+Date: 2026-11-15 (Asia/Taipei)
+
+Main weights supplied by user at `~/Downloads/ai/models/comfyui/ComfyUI/models/`:
+- diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors; 20,970,379,616 bytes; SHA256 9255f52b6677845ad238f20dfaafa94727053694127ab7f255c048f0f9365779 (matches official Comfy-Org)
+- text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors; 27,141,342,152 bytes; SHA256 bc2ced0fbea64757fa9acddccfc0b3f4819d1dcf1da6c124d690d368be283923 (matches official Comfy-Org)
+
+No model >10GB was downloaded by the assistant.
+
+Reused ComfyUI source tarball:
+- `~/Downloads/ai/tools/source/ComfyUI-102350eb949bca599e450a904f0562ad3f551279.tar.gz`
+- SHA256: 32b4f0004223e622e20d71b2e48d4bd80110c15e861bd0d91f3b5212b913020c
+- Extracted under `~/Downloads/ai/tools/comfyui-linux/ComfyUI-102350eb949bca599e450a904f0562ad3f551279`
+- Contains `comfy_extras/nodes_minimax_h3.py`.
+- `extra_model_paths.yaml` points to the user model tree; no large weights are copied.
+
+Environment setup:
+- System Python 3.12.3 lacked ensurepip/venv. Installed apt package `python3.12-venv` using sudo (about 2.4 MB of packages).
+- Isolated environment: `~/Downloads/ai/tools/comfyui-linux/.venv`.
+- CUDA PyTorch 2.9.1, torchvision 0.24.1, torchaudio 2.9.1 from official cu130 wheel index: installation in progress.
+
+Missing small H3 VAE pair was not present locally. Began downloading official files (<10GB each) into the user model tree:
+- `vae/minimax_h3_video_vae_fp16.safetensors` (remote content-length 5,207,808,496 bytes; curl reports 4,966 MB total), download in progress; observed roughly 0.6 MB/s at snapshot.
+- `vae/minimax_h3_audio_vae_fp32.safetensors` (605,254,808 bytes), queued after video VAE due sequential `curl` command.
+
+Current state at this log: no ComfyUI server, no generation, GPU remains at 250 W power cap; do not call the video VAE file complete until curl exits and its SHA-256 is checked.
+- Source `pyproject.toml` identifies ComfyUI version 0.45.0.
+- Installed system ffmpeg 6.1.1-3ubuntu5 using apt; this will be used to trim the valid H3 12.25-second clip to the challenge's exact 12.00 seconds.
+- Transfer snapshot: video VAE reached 349,970,432 / 5,207,808,496 bytes; network was roughly 0.5 MB/s. Do not treat the partial file as usable.
+
+Latest background checkpoint:
+- Video VAE partial size: 388,550,656 bytes of 5,207,808,496 bytes.
+- The `curl` transfer process and pip CUDA-wheel installation remain active in the shell sessions. FFmpeg install completed successfully (`ffmpeg version 6.1.1-3ubuntu5`).
+- GPU generation has not started; no change to the 250 W power limit.
+
+Status check after the user requested that the assistant continue the small VAE downloads:
+- Video VAE: 1,165,746,176 / 5,207,808,496 bytes (about 22.4%); transfer still active at roughly 0.48 MB/s.
+- Audio VAE transfer is queued after the video VAE in the same shell command.
+- PyTorch 2.9.1/cu130 dependency installation remains active. CUDA cuDNN, cuBLAS, cuFFT, cuRAND, cuSOLVER, cuSPARSE and cuSPARSELt wheels are being fetched; torchvision and torchaudio follow.
+- Root filesystem has 107 GiB free. GPU is idle (191 MiB used); power cap remains 250 W.
+- No ComfyUI server or video generation has started.
+
+Checkpoint 2026-11-15 17:23 CST:
+- Video VAE partial size: 1,203,015,680 / 5,207,808,496 bytes (23.1%); `curl` PID 74275 remains active.
+- Audio VAE remains queued behind video in the same shell command.
+- PyTorch 2.9.1/cu130 install is still active (`pip` PID 74787); the isolated venv is not ready to use yet.
+- `ffmpeg` is installed; available disk is 107 GiB.
+- GPU query: 250.00 W power limit, 14.45 W draw, 191 MiB used. No ComfyUI process or render is active.
+
+Checkpoint 2026-11-15 17:30 CST:
+- Video VAE partial size: 1,395,617,792 / 5,207,808,496 bytes (26.8%); curl PID 74275 remains active. Audio VAE is queued.
+- PyTorch 2.9.1/cu130 pip process PID 74787 remains active; `pip show` confirms torch, torchvision, and torchaudio are not installed yet.
+- Official R2V template downloaded to `docs/research/workflows/video_minimax_h3_r2v.official.json`, SHA-256 `a79f1a8ae7d250f9da8b0f4e636e202526c37457b808e74fdf25de7ceed96574`.
+- Created 3D and 2D workflow JSONs and copied the six verified reference images into ComfyUI's `input/lcz3045/` directory. Both workflow structures point to six refs, 1344×768, 294 frames, 20 steps, and one fixed seed. They have not been loaded or executed.
+- Free disk 107 GiB. GPU: 250 W power cap, 14.33 W draw, 192 MiB used. No ComfyUI server or render is active.
+
+Checkpoint 2026-11-15 17:35 CST:
+- Video VAE partial size: 1,519,071,232 / 5,207,808,496 bytes (29.2%); curl PID 74275 remains active.
+- PyTorch pip PID 74787 remains active. Its Torch 2.9.1/cu130 wheel download had reached 237 / 612.6 MB; package installation has not completed.
+- GPU: 250.00 W power limit, 14.86 W draw, 192 MiB used. No ComfyUI server or render is active.
+- Official Hugging Face SHA-256 values for post-download verification: video VAE `7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522`; audio VAE `8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48`.
+- Hardware inventory: NVIDIA GeForce RTX 3080, 20,480 MiB VRAM, driver 595.99.02, PCI bus 00000000:03:00.0; measured host RAM 125 GiB; Python 3.12.3; ffmpeg 6.1.1-3ubuntu5; ComfyUI source 0.45.0.
+- CPU/storage inventory: Intel Xeon E5-2666 v3, 10 cores / 20 threads; root filesystem `/dev/nvme0n1p5`, ext4, 452.7 GB partition on Samsung NVMe; 104.7 GiB free at 17:57 CST.
+
+Resume checkpoint 2026-11-15 17:39 CST:
+- Video VAE partial size: 1,635,893,248 / 5,207,808,496 bytes (31.4%); curl PID 74275 remains active.
+- PyTorch pip PID 74787 remains active; Torch, torchvision, torchaudio have not been installed yet.
+- Disk free: 106 GiB. GPU: 250 W cap, 14.47 W draw, 192 MiB used. No ComfyUI server or generation is active.
+
+Checkpoint 2026-11-15 17:41 CST:
+- Video VAE partial size: 1,664,286,720 / 5,207,808,496 bytes (32.0%); curl PID 74275 remains active.
+- Torch 2.9.1/cu130 wheel: 524,800,000 / 612,600,000 bytes (85.7%); pip PID 74787 remains active.
+- GPU: 250 W power limit, 20.02 W draw, 192 MiB used. Free disk: 106 GiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:45 CST:
+- Video VAE partial size: 1,774,505,984 / 5,207,808,496 bytes (34.1%); curl PID 74275 remains active.
+- Torch 2.9.1/cu130, torchvision 0.24.1, torchaudio 2.9.1 main wheels have downloaded. Pip PID 74787 is fetching NVIDIA NCCL (193.9 MB) and remaining CUDA dependencies. Packages are not installed yet.
+- GPU: 250 W power limit, 19.62 W draw, 191 MiB used. Free disk: 106 GiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:47 CST:
+- Video VAE partial size: 1,911,054,336 / 5,207,808,496 bytes (36.7%); curl PID 74275 active.
+- PyTorch pip PID 74787 is downloading NVIDIA NCCL; `pip show` still finds no torch packages.
+- Free disk 106 GiB. GPU cap 250 W, draw 14.23 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:49 CST:
+- Video VAE partial size: 1,990,803,456 / 5,207,808,496 bytes (38.2%); curl PID 74275 active.
+- NVIDIA NCCL wheel: 28,733,440 / 193,900,000 bytes (14.8%); pip PID 74787 active.
+- GPU cap 250 W, draw 17.93 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:53 CST:
+- Video VAE partial size: 2,220,277,760 / 5,207,808,496 bytes (42.6%); curl PID 74275 active.
+- NVIDIA NCCL: 46,929,920 / 193,900,000 bytes (24.2%); pip PID 74787 active.
+- GPU cap 250 W, draw 16.52 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:55 CST:
+- Video VAE partial size: 2,345,250,816 / 5,207,808,496 bytes (45.0%); curl PID 74275 active.
+- NVIDIA NCCL: 56,975,360 / approximately 193,900,000 bytes (29.4%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.19 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:57 CST:
+- Video VAE partial size: 2,480,050,176 / 5,207,808,496 bytes (47.6%); curl PID 74275 active.
+- NVIDIA NCCL: 67,153,920 / approximately 193,900,000 bytes (34.6%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.64 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 17:59 CST:
+- Video VAE partial size: 2,604,847,104 / 5,207,808,496 bytes (50.0%); curl PID 74275 active.
+- NVIDIA NCCL: 76,584,960 / approximately 193,900,000 bytes (39.5%); pip PID 74787 active.
+- GPU cap 250 W, draw 15.05 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:01 CST:
+- Video VAE partial size: 2,782,892,032 / 5,207,808,496 bytes (53.4%); curl PID 74275 active.
+- NVIDIA NCCL: 87,070,720 / approximately 193,900,000 bytes (44.9%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.15 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:04 CST:
+- Video VAE partial size: 2,963,402,752 / 5,207,808,496 bytes (56.9%); curl PID 74275 active.
+- NVIDIA NCCL: 99,215,360 / approximately 193,900,000 bytes (51.2%); pip PID 74787 active.
+- GPU cap 250 W, draw 13.96 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:06 CST:
+- Video VAE partial size: 3,064,553,472 / 5,207,808,496 bytes (58.8%); curl PID 74275 active.
+- NVIDIA NCCL: 105,953,280 / approximately 193,900,000 bytes (54.6%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.64 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:09 CST:
+- Video VAE partial size: 3,268,923,392 / 5,207,808,496 bytes (62.8%); curl PID 74275 active.
+- NVIDIA NCCL: 122,204,160 / approximately 193,900,000 bytes (63.0%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.16 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:11 CST:
+- Video VAE partial size: 3,433,070,592 / 5,207,808,496 bytes (65.9%); curl PID 74275 active.
+- NVIDIA NCCL: 136,734,720 / approximately 193,900,000 bytes (70.5%); pip PID 74787 active.
+- GPU cap 250 W, draw 13.91 W, 191 MiB used. No ComfyUI server or render.
+- VAE verification watcher is active in shell session 60414; it will verify exact sizes and SHA-256 values after curl shell PID 74273 exits.
+
+Checkpoint 2026-11-15 18:13 CST:
+- Video VAE partial size: 3,569,311,744 / 5,207,808,496 bytes (68.5%); curl PID 74275 active.
+- NVIDIA NCCL: 146,206,720 / approximately 193,900,000 bytes (75.4%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.61 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:15 CST:
+- Video VAE partial size: 3,676,958,720 / 5,207,808,496 bytes (70.6%); curl PID 74275 active.
+- NVIDIA NCCL: 151,808,000 / approximately 193,900,000 bytes (78.3%); pip PID 74787 active.
+- GPU cap 250 W, draw 19.54 W, 191 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:19 CST:
+- Video VAE partial size: 3,911,811,072 / 5,207,808,496 bytes (75.1%); curl PID 74275 active.
+- NVIDIA NCCL: 167,843,840 / approximately 193,900,000 bytes (86.6%); pip PID 74787 active.
+- GPU cap 250 W, draw 15.27 W, 193 MiB used. No ComfyUI server or render.
+- Workflow preflight found that the template's connected 0.4 MP selector overrode its displayed dimensions. Set the selector to 0.984375 MP/16:9/multiple-32; it resolves to 1344×768. Corrected before any render.
+
+Checkpoint 2026-11-15 18:20 CST:
+- `python3 docs/research/workflows/verify_lcz3045_workflows.py` passed. Full JSON evidence: `docs/research/logs/16-lcz3045-workflow-preflight.json`.
+- Video VAE partial size: 4,005,527,552 / 5,207,808,496 bytes (76.9%); curl PID 74275 active.
+- NVIDIA NCCL: 173,660,160 / approximately 193,900,000 bytes (89.5%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.39 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:21 CST:
+- Video VAE partial size: 4,078,985,216 / 5,207,808,496 bytes (78.3%); curl PID 74275 active.
+- NVIDIA NCCL: 180,910,080 / approximately 193,900,000 bytes (93.3%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.12 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:23 CST:
+- Video VAE partial size: 4,173,717,504 / 5,207,808,496 bytes (80.1%); curl PID 74275 active.
+- NVIDIA NCCL: 189,644,800 / approximately 193,900,000 bytes (97.8%); pip PID 74787 active.
+- GPU cap 250 W, draw 15.00 W, 192 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:24 CST:
+- Video VAE partial size: 4,253,003,776 / 5,207,808,496 bytes (81.7%); curl PID 74275 active.
+- NVIDIA NCCL wheel downloaded at 193,901,479 bytes. Pip PID 74787 is now downloading Triton 3.5.1 (170.5 MB); `pip show` still finds no Torch packages.
+- GPU cap 250 W. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:26 CST:
+- Video VAE partial size: 4,291,076,096 / 5,207,808,496 bytes (82.4%); curl PID 74275 active.
+- Triton 3.5.1 wheel: 82,790,400 / 170,500,000 bytes (48.6%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.05 W, 212 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:27 CST:
+- Video VAE partial size: 4,335,976,448 / 5,207,808,496 bytes (83.3%); curl PID 74275 active.
+- Triton 3.5.1 wheel: 130,170,880 / 170,500,000 bytes (76.4%); pip PID 74787 active.
+- GPU cap 250 W, draw 14.02 W, 210 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:29 CST:
+- Video VAE partial size: 4,392,075,264 / 5,207,808,496 bytes (84.3%); curl PID 74275 active.
+- Triton wheel download completed; pip PID 74787 is fetching fsspec and networkx. `pip show` still finds no Torch packages.
+- GPU cap 250 W, draw 13.91 W, 210 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:30 CST:
+- Video VAE partial size: 4,504,129,536 / 5,207,808,496 bytes (86.5%); curl PID 74275 active.
+- PyTorch pip PID 74787 remains active; `pip show` finds no Torch packages yet.
+- GPU cap 250 W, draw 14.31 W, 210 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:32 CST:
+- Video VAE partial size: 4,606,197,760 / 5,207,808,496 bytes (88.4%); curl PID 74275 active.
+- PyTorch pip PID 74787 is fetching Pillow and SymPy after fsspec/networkx; Torch packages not installed yet.
+- GPU cap 250 W, draw 14.11 W, 210 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:33 CST:
+- Video VAE partial size: 4,702,351,360 / 5,207,808,496 bytes (90.3%); curl PID 74275 active.
+- PyTorch pip PID 74787 is fetching NumPy 2.5.4 and small dependencies; Torch packages are still not installed.
+- GPU cap 250 W, draw 19.11 W, 154 MiB used. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:35 CST:
+- Video VAE partial size: 4,808,937,472 / 5,207,808,496 bytes (92.3%); curl PID 74275 active.
+- PyTorch pip PID 74787 remains active; `pip show` had not found Torch.
+- GPU cap 250 W, draw 13.84 W, 209 MiB used. No ComfyUI server or render.
+- Dependency installer watcher session 98711 waits for PID 74787, then installs ComfyUI requirements and logs CUDA visibility in `docs/research/logs/17-comfyui-dependencies.log`.
+
+Checkpoint 2026-11-15 18:41 CST:
+- PyTorch install completed: Torch 2.9.1+cu130, torchvision 0.24.1+cu130, torchaudio 2.9.1+cu130.
+- ComfyUI requirements install PID 95428 is active; last log shows the 29.6 MB frontend wheel downloading.
+- Video VAE: 5,203,689,472 / 5,207,808,496 bytes (99.92%). Audio VAE starts after video transfer.
+- GPU cap 250 W, draw 16.34 W, VRAM 207 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:42 CST:
+- Video VAE download completed at expected size 5,207,808,496 bytes; SHA-256 verification waits for audio transfer completion.
+- Audio VAE: 80,470,016 / 605,254,808 bytes (13.3%); download active.
+- ComfyUI requirements install remains active on the 29.6 MB frontend wheel.
+- GPU cap 250 W, draw 14.63 W, VRAM 207 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:44 CST:
+- Audio VAE: 200,192,000 / 605,254,808 bytes (33.1%), download active.
+- ComfyUI requirements PID 95428 remains active. Frontend wheel has not logged completion; pip had live TLS connections at 18:43 CST.
+- GPU cap 250 W, draw 15.85 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:45 CST:
+- Audio VAE: 271,818,752 / 605,254,808 bytes (44.9%), download active.
+- Pip remains active on the ComfyUI frontend wheel. Its TLS connections are established; no completion line yet.
+- GPU cap 250 W, draw 15.60 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:46 CST:
+- Audio VAE: 341,901,312 / 605,254,808 bytes (56.5%), download active.
+- Pip remains active on the ComfyUI frontend wheel; TCP receive counters show data arriving.
+- GPU cap 250 W, draw 14.06 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:47 CST:
+- Audio VAE: 403,066,880 / 605,254,808 bytes (66.6%), download active.
+- Pip remains active on the 29.6 MB ComfyUI frontend wheel.
+- GPU cap 250 W, draw 14.56 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:48 CST:
+- Audio VAE: 463,712,256 / 605,254,808 bytes (76.6%), download active.
+- Pip PID 95428 remains active on the frontend wheel; process write_bytes=24,014,848 and TLS sockets were active at 18:48.
+- GPU cap 250 W, draw 14.00 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:49 CST:
+- Audio VAE: 534,581,248 / 605,254,808 bytes (88.3%), download active.
+- Pip has moved past the frontend wheel and is collecting dependency metadata; requirements installation remains active.
+- GPU cap 250 W, draw 14.07 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:50 CST:
+- Audio VAE: 593,199,104 / 605,254,808 bytes (98.0%), download active.
+- ComfyUI requirements installation remains active; latest log includes frontend wheel and dependency metadata.
+- GPU cap 250 W, draw 19.89 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:51 CST:
+- Both VAE downloads completed and passed expected-size and official SHA-256 checks:
+  - Video: size=5207808496 sha256=7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522
+  - Audio: size=605254808 sha256=8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48
+- ComfyUI requirements pip has completed frontend (29.6 MB) and embedded-docs (24.6 MB) wheels; it is downloading comfy_kitchen (69.2 MB).
+- GPU cap 250 W, draw 14.30 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:52 CST:
+- Both VAEs remain verified against official size and SHA-256 values.
+- Pip completed comfy_kitchen (69.2 MB) and is downloading comfyui_workflow_templates_media_api (100.1 MB).
+- GPU cap 250 W, draw 13.90 W, VRAM 147 MiB. Free disk 100 GiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:53 CST:
+- Both VAE files passed official size and SHA-256 verification.
+- Pip remains active on comfyui_workflow_templates_media_api (100.1 MB); active socket cumulative bytes_received=230498438 at 18:53.
+- GPU cap 250 W, draw 14.99 W, VRAM 147 MiB. Free disk 100 GiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:54 CST:
+- Pip completed comfyui_workflow_templates_media_api (100.1 MB), then began comfyui_workflow_templates_media_assets_01 (94.2 MB).
+- Both VAEs remain verified. GPU cap 250 W, draw 14.65 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:55 CST:
+- Pip completed media_assets_01 (94.2 MB) and began media_assets_02 (83.2 MB); requirements install active.
+- Both VAEs remain verified. GPU cap 250 W, draw 17.90 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:56 CST:
+- Pip completed media_assets_02 (83.2 MB) and began comfyui_workflow_templates_media_image (89.4 MB).
+- Both VAEs remain verified. GPU cap 250 W, draw 18.94 W, VRAM 147 MiB. No ComfyUI server or render.
+Checkpoint 2026-11-15 18:57 CST:
+- Pip completed media_image (89.4 MB) and began media_other (89.1 MB).
+- Both VAEs remain verified. GPU cap 250 W, draw 19.69 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 18:58 CST:
+- Pip completed media_other (89.1 MB) and began media_video (104.3 MB).
+- Both VAEs remain verified. GPU cap 250 W, draw 13.88 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 19:00 CST:
+- Pip moved past the workflow media bundles and is downloading remaining Python dependencies; latest log shows scipy 1.18.1 (35.3 MB).
+- Both VAEs remain verified. GPU cap 250 W, draw 13.89 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 19:01 CST:
+- Pip is downloading remaining dependencies, including PyAV 19.0.2 (35.0 MB), after SciPy.
+- Free disk 99 GiB. GPU cap 250 W, draw 19.27 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 19:02 CST:
+- Dependency downloads completed; pip is installing the collected ComfyUI requirements.
+- Free disk 97 GiB. GPU cap 250 W, draw 13.90 W, VRAM 147 MiB. No ComfyUI server or render.
+
+Checkpoint 2026-11-15 19:03 CST:
+- ComfyUI requirements installation completed successfully.
+- Torch 2.9.1+cu130, torchvision 0.24.1+cu130, torchaudio 2.9.1+cu130.
+- CUDA visibility check passed: cuda_available=True, CUDA 13.0, NVIDIA GeForce RTX 3080 detected.
+- GPU cap 250 W, idle draw 13.96 W, VRAM 147 MiB. Next: start server and validate model/node loading before render.
+
+Checkpoint 2026-11-15 19:04 CST:
+- ComfyUI server started at 127.0.0.1:8188; startup log: logs/13-comfyui-server-20261115-190341.log.
+- `/object_info` exposes MiniMaxH3ReferenceToVideo and the local model selectors list the exact INT8 ConvRot DiT/text encoder plus both verified VAEs.
+- Startup reports 20,053 MiB VRAM, DynamicVRAM, async weight offload with two streams, and CUDA device NVIDIA GeForce RTX 3080.
+- GPU cap 250 W; server idle VRAM 371 MiB. No workflow queued.
+
+Checkpoint 2026-11-15 19:05 CST:
+- First UI queue attempt was rejected before execution: LoraLoaderModelOnly referenced absent optional Turbo LoRA; no generation output was produced.
+- Removed the optional LoRA/switch branch in the builder and wired base DiT plus fixed 20-step nodes directly. Both workflows pass structural preflight; frontend conversion yields 25 API nodes and no LoRA node.
+- Updated hashes: 3D f1f9c7ce24682a51c805a884834e87a5987ba6ae5a3feaadae9b0002f54f20ad; 2D ce64154a7a22d02f8d2ceb10621a8b1287eab92b7cee0d67925f624c5350697a. Retrying 3D.
+
+Checkpoint 2026-11-15 19:11 CST:
+- 3D prompt 884e6eb5-633d-4fcf-910e-60b035231048 is running (one job, zero pending).
+- GPU cap 250 W, draw 249.12 W, VRAM 15031 MiB, temperature 46 C.
+- Host RAM: 19 GiB used / 125 GiB total, 106 GiB available.
+- Server log shows video VAE and 25.9 GB text encoder staged with dynamic VRAM offload; sampling progress not yet reported.
+
+Checkpoint 2026-11-15 19:12 CST:
+- 3D run reached sampler initialization at 0/20 steps.
+- Main DiT reports 19995 MB staged; text encoder reports 25882 MB staged with dynamic offload.
+- GPU cap 250 W, draw 249.47 W, VRAM 12889 MiB, temperature 55 C.
+- Host RAM 37 GiB used / 125 GiB, 88 GiB available. Queue one running, zero pending; no OOM.
+
+Checkpoint 2026-11-15 19:13 CST:
+- One 3D prompt remains active. Progress is still 0/20 with “Model Initializing” for approximately 80 seconds.
+- GPU cap 250 W, draw 249–250 W, VRAM 16483 MiB, temperature 60 C.
+- Host RAM 43 GiB used / 125 GiB, 82 GiB available. No OOM or queue error observed.
+
+Checkpoint 2026-11-15 19:14 CST:
+- GPU utilization 100%, power draw 249.83 W, VRAM 18155 MiB, temperature 61 C.
+- Host RAM 46 GiB used / 125 GiB, 78 GiB available.
+- Progress display remains “Model Initializing” at 0/20; one prompt active; no OOM.
+VERIFIED minimax_h3_video_vae_fp16.safetensors size=5207808496 sha256=7c1f131492e7eddacaac9069a61b81bdd39de5cc96561e677c5eab1cdce5e522
+VERIFIED minimax_h3_audio_vae_fp32.safetensors size=605254808 sha256=8e505d95dd1561d47abd43d4238fd40d9bb1ae9e147ed0a4cba778d76ae4db48
+
+Checkpoint 2026-11-15 19:15 CST:
+- GPU utilization 100%, power draw 249.07 W, VRAM 19795 MiB, temperature 62 C.
+- Host RAM 51 GiB used / 125 GiB, 74 GiB available.
+- Progress remains “Model Initializing” at 0/20; one prompt active and no OOM.
+
+Checkpoint 2026-11-15 19:17 CST:
+- Model initialization completed; 3D sampler reached 1/20 (5%) after 4m26s elapsed.
+- First-step average 266.65 s/step; naïve linear estimate ~84 minutes for 20 steps, provisional because it includes initialization and one step.
+- GPU utilization 100%, draw 245.60 W, VRAM 19703 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. Queue one active; no OOM.
+
+Checkpoint 2026-11-15 19:19 CST:
+- Sampler remains at 1/20; second step has not completed yet.
+- GPU utilization 100%, draw 248.68 W, VRAM 19703 MiB, temperature 62–63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. Queue one active; no OOM. Runtime projection remains provisional.
+
+Checkpoint 2026-11-15 19:21 CST:
+- Sampler reached 2/20 (10%) at 8m51s elapsed; mean 265.61 s/step.
+- At current rate, about 80 minutes remain for 3D; estimate remains provisional.
+- GPU utilization 100%, draw 249.92 W, VRAM 19671 MiB, temperature 62 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:22 CST:
+- Sampler remains at 2/20; GPU utilization 100%, draw 248.95 W, VRAM 19671 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. Queue one active, no OOM.
+- One-second GPU/RAM telemetry continues in logs 14 and 15.
+
+Checkpoint 2026-11-15 19:24 CST:
+- Sampler remains at 2/20; current step has run about 3m14s.
+- GPU utilization 100%, draw 250.13 W, VRAM 19671 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. One active job, no error or OOM.
+
+Checkpoint 2026-11-15 19:24:50 CST:
+- Sampler reached 3/20 (15%) at 13m17s; mean 266.29 s/step, about 75 minutes remain at this rate.
+- GPU 100%, draw 249.63 W, VRAM 19671 MiB, 63 C. Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:25 CST:
+- Sampler remains 3/20; current step has run about one minute; observed pace is ~4m25s/step.
+- GPU utilization 100%, draw 248.27 W, VRAM 19575 MiB, temperature 64 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:28 CST:
+- Sampler remains 3/20; fourth step has run about 3m10s, near observed ~4m25s cadence.
+- GPU utilization 100%, draw 247.88 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. Queue stable; no OOM.
+
+Checkpoint 2026-11-15 19:29:41 CST:
+- Sampler reached 4/20 (20%) at 17m43s elapsed; mean 266.11 s/step, about 71 minutes remain at this rate.
+- GPU utilization 100%, draw 248.76 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:31 CST:
+- Sampler remains 4/20; fifth step has run about two minutes.
+- GPU utilization 100%, draw 248.85 W, VRAM 19575 MiB, temperature 62 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. One active job; no OOM.
+
+Checkpoint 2026-11-15 19:33 CST:
+- Sampler remains 4/20; fifth step has run about 3m30s.
+- GPU utilization 100%, draw 249.48 W, VRAM 19575 MiB, temperature 62 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:34 CST:
+- Sampler remains 4/20; fifth step has run about 5 minutes, ~30s beyond the prior mean.
+- GPU utilization 100%, draw 249.91 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. Queue active; no OOM.
+
+Checkpoint 2026-11-15 19:35:04 CST:
+- Sampler reached 5/20 (25%) at 22m09s elapsed; mean 266.34 s/step.
+- Estimated 66m35s remain; projected completion around 20:42 CST if the current pace holds.
+- GPU utilization 100%, draw 249.75 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:37 CST:
+- Sampler remains 5/20; sixth step has run about three minutes.
+- GPU utilization 100%, draw 249.62 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:39:12 CST:
+- Sampler reached 6/20 (30%) at 26m35s elapsed; mean 265.99 s/step, about 62m04s remain.
+- Projected completion about 20:41 CST at this pace.
+- GPU utilization 100%, draw 249.39 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:41 CST:
+- Sampler remains 6/20; seventh step has run about 4m48s, a little slower than prior mean.
+- GPU utilization 100%, draw 247.89 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:43 CST:
+- Sampler reached 7/20 (35%) at 31m02s elapsed; mean 266.37 s/step, 57m42s remain.
+- Projected completion about 20:41 CST if pace continues.
+- GPU utilization 100%, draw 248.89 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:45 CST:
+- Sampler remains 7/20; eighth step has run about one minute.
+- GPU utilization 100%, draw 248.34 W, VRAM 19575 MiB, temperature 62 C.
+- Host RAM 52 GiB used / 125 GiB, 72 GiB available. One job active; no OOM.
+
+Checkpoint 2026-11-15 19:47 CST:
+- Sampler remains 7/20; eighth step has run about 2m08s.
+- GPU utilization 100%, draw 249.10 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM; telemetry active.
+
+Checkpoint 2026-11-15 19:47:31 CST:
+- Sampler reached 8/20 (40%) at 35m29s elapsed; mean 266.76 s/step, 53m21s remain.
+- Projected completion about 20:41 CST if pace continues.
+- GPU 100%, draw 245.87 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:49 CST:
+- Sampler remains 8/20; ninth step has run about 2m06s.
+- GPU utilization 100%, draw 249.77 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. One active job, no OOM.
+
+Checkpoint 2026-11-15 19:51 CST:
+- Sampler remains 8/20; ninth step has run about 4m11s.
+- GPU utilization 100%, draw 245–250 W, VRAM 19575 MiB, temperature 63–64 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. Queue active; no error or OOM.
+
+Checkpoint 2026-11-15 19:52:05 CST:
+- Sampler reached 9/20 (45%) at 39m55s elapsed; mean 266.83 s/step, about 48m55s remain.
+- Projected completion around 20:41 CST if pace holds.
+- GPU 100%, draw 249.76 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:55 CST:
+- Sampler remains 9/20; tenth step has run about 3m18s.
+- GPU utilization 100%, draw 248.62 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. Queue active; no OOM.
+
+Checkpoint 2026-11-15 19:57:27 CST:
+- Sampler reached 10/20 (50%) at 44m22s elapsed; mean 266.16 s/step, about 44m21s remain.
+- Projected completion about 20:41 CST if pace continues.
+- GPU utilization 100%, draw 248.62 W, VRAM 19575 MiB, temperature 62 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 19:59 CST:
+- Sampler remains 10/20; eleventh step has run about one minute.
+- GPU utilization 100%, draw 249.58 W, VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. One active job; no error or OOM.
+
+Checkpoint 2026-11-15 20:01:10 CST:
+- Sampler reached 11/20 (55%) at 48m48s elapsed; mean 266.71 s/step, about 40m00s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, draw 249.19 W, VRAM 19575 MiB, temperature 62 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM.
+
+Checkpoint 2026-11-15 20:03 CST:
+- Sampler remains 11/20; twelfth step has run about 3m27s.
+- GPU utilization 100%, draw 248.95 W, VRAM 19575 MiB, temperature 62 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. Queue active; no error or OOM.
+
+Checkpoint 2026-11-15 20:05:45 CST:
+- Sampler reached 12/20 (60%) at 53m14s elapsed; mean 265.73 s/step, about 35m26s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 248.30 W (configured cap 250 W), VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB / 125 GiB, 72 GiB available. No OOM or sampler error.
+
+Checkpoint 2026-11-15 20:10:10 CST:
+- Sampler reached 13/20 (65%) at 57m40s elapsed; mean 265.84 s/step, about 31m00s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 249.77 W (configured cap 250 W), VRAM 19575 MiB, temperature 63 C.
+- Host RAM 52 GiB used, 72 GiB available. No OOM or sampler error.
+
+Checkpoint 2026-11-15 20:14:29 CST:
+- Sampler reached 14/20 (70%) at 1h02m06s elapsed; mean 266.08 s/step, about 26m36s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 244.88 W (configured cap 250 W), VRAM 19575 MiB, temperature 64 C.
+- No OOM; host memory remains stable.
+
+Checkpoint 2026-11-15 20:18:44 CST:
+- Sampler reached 15/20 (75%) at 1h06m32s elapsed; mean 265.92 s/step, about 22m09s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 249.74 W (configured cap 250 W), VRAM 19575 MiB, temperature 63 C.
+- No OOM or sampler error.
+
+Checkpoint 2026-11-15 20:23:33 CST:
+- Sampler reached 16/20 (80%) at 1h10m58s elapsed; mean 265.69 s/step, about 17m42s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 249.74 W (configured cap 250 W), VRAM 19575 MiB, temperature 63 C.
+- No OOM or sampler error; host memory stable.
+
+Checkpoint 2026-11-15 20:27:49 CST:
+- Sampler reached 17/20 (85%) at 1h15m23s elapsed; mean 265.40 s/step, about 13m16s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 248.96 W (configured cap 250 W), VRAM 19641 MiB, temperature 63 C.
+- No OOM or sampler error.
+
+Checkpoint 2026-11-15 20:32:04 CST:
+- Sampler reached 18/20 (90%) at 1h19m48s elapsed; mean 265.43 s/step, about 8m50s remain.
+- Projected completion around 20:41 CST if pace continues.
+- GPU 100%, observed draw 249.04 W (configured cap 250 W), VRAM 19571 MiB, temperature 63 C.
+- No OOM or sampler error.
+
+Checkpoint 2026-11-15 20:36:19 CST:
+- Sampler reached 19/20 (95%) at 1h24m14s elapsed; mean 265.61 s/step, final step estimated about 4m25s.
+- Sampler expected near 20:41 CST; VAE decode and video mux/write follow, final completion time TBD.
+- GPU 100%, observed draw 249.26 W (configured cap 250 W), VRAM 19511 MiB, temperature 63 C.
+- No OOM or sampler error.
+
+3D run completed successfully — 2026-11-15 20:43 CST
+- Prompt ID: 884e6eb5-633d-4fcf-910e-60b035231048; sampler 20/20 in 1h28m39s; ComfyUI reports total execution 1h31m14s.
+- Original: output/video/lcz3045_3d_00001_.mp4; 12.25 s, 294 frames, 1344x768, 24 fps; 11,894,700 bytes; SHA-256 bc440fba1aac2990169544e83d9541ca5c8a4253a5a1a8a78388e5cf9842edee.
+- Final: output/video/lcz3045_3d_12s.mp4; 12.000 s, 288 frames, 1344x768, 24 fps; 18,652,984 bytes; SHA-256 09013fb27f1733b0ed44f396ec2ab3a0f20f711e0a46fc290580b6992ceb3ef5. Verification PASS for dimensions, frame count, frame rate, duration.
+- Review contact sheet: docs/research/assets/minimax-h3-lcz3045/lcz3045-3d-contact-sheet.png (samples at 0, 2, 4, 6, 8, 10 seconds). Sword duel and flame effects read clearly; visual composition changes between shots, with some detail/pose variation typical of generated video.
+- Telemetry window 19:11:25–20:42:41 (5,474 one-second samples): mean GPU draw 247.37 W; measured peak 252.25 W; configured limit 250 W. Peak VRAM 19,799 MiB; peak temperature 64 C. Host RAM available reached a minimum of 63.8 GiB; swap free remained >=7.63 GiB. No OOM.
+- 2D workflow checked: 25 prompt nodes; no LoRA node; save prefix video/lcz3045_2d. Prompt ID 6ed32790-6713-4674-ae97-e6eee8e9af34 queued about 20:44 CST.
+
+2D live checkpoint — 2026-11-15 20:49:29 CST:
+- Sampler reached 1/20 (5%); model initialization plus first step took 4m25s, mean 265.70 s/step.
+- Estimated 19 steps / 84m08s remain; projected sampling completion near 21:54 CST, followed by VAE decode/write.
+- GPU 100%, draw 249.02 W (configured limit 250 W), VRAM 19715 MiB, 63 C; host RAM 58 GiB used / 67 GiB available. No OOM.
+
+2D live checkpoint — 2026-11-15 20:54:07 CST:
+- Sampler reached 2/20 (10%) at 8m55s elapsed; mean 267.85 s/step; about 1h20m21s remains.
+- Revised sampling completion estimate ~22:14 CST. Correction: the prior 21:54 estimate was a time arithmetic error; it omitted the remaining interval.
+- GPU 100%, draw 248.90 W, VRAM 19707 MiB, 62 C. No OOM.
+
+2D live checkpoint — 2026-11-15 20:58:34 CST:
+- Sampler reached 3/20 (15%) at 13m29s; observed mean 273.46 s/step; 17 steps / 1h17m28s remain.
+- Revised projected sampling completion ~22:16 CST.
+- GPU 100%, draw 249.85 W, VRAM 19704 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:02:55 CST:
+- Sampler reached 4/20 (20%) at 18m04s; mean 275.83 s/step; 16 steps / 1h13m33s remain.
+- Projected sampling end remains around 22:16 CST.
+- GPU 100%, draw 249.03 W, configured limit 250 W, VRAM 19459 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:07:18 CST:
+- Sampler reached 5/20 (25%) at 22m31s; mean 266.44 s/step; 15 steps / 1h06m36s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 245.69 W, VRAM 19454 MiB, 64 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:11:41 CST:
+- Sampler reached 6/20 (30%) at 26m57s; mean 266.34 s/step; 14 steps / 1h02m08s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 248.73 W, configured limit 250 W, VRAM 19430 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:16:05 CST:
+- Sampler reached 7/20 (35%) at 31m24s; mean 266.25 s/step; 13 steps / 57m41s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, telemetry draw 249.67 W, VRAM 19497 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:20:58 CST:
+- Sampler reached 8/20 (40%) at 35m49s; mean 265.77 s/step; 12 steps / 53m09s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, observed draw 245.77 W, VRAM 19477 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:25:21 CST:
+- Sampler reached 9/20 (45%) at 40m16s; mean 266.35 s/step; 11 steps / 48m49s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 248.77 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:29:39 CST:
+- Sampler reached 10/20 (50%) at 44m41s; mean 265.77 s/step; 10 steps / 44m17s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 249.56 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:34:02 CST:
+- Sampler reached 11/20 (55%) at 49m07s; mean 266.02 s/step; 9 steps / 39m54s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 249.63 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:38:23 CST:
+- Sampler reached 12/20 (60%) at 53m34s; mean 266.27 s/step; 8 steps / 35m30s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 248.46 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:42:41 CST:
+- Sampler reached 13/20 (65%) at 58m00s; mean 266.10 s/step; 7 steps / 31m02s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, telemetry draw 248.87 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:47:36 CST:
+- Sampler reached 14/20 (70%) at 1h02m26s; mean 266.08 s/step; 6 steps / 26m36s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, telemetry draw 248.49 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:52:04 CST:
+- Sampler reached 15/20 (75%) at 1h06m52s; mean 266.32 s/step; 5 steps / 22m11s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 249.38 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 21:56:19 CST:
+- Sampler reached 16/20 (80%) at 1h11m18s; mean 266.28 s/step; 4 steps / 17m45s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, draw 249.22 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 22:00:36 CST:
+- Sampler reached 17/20 (85%) at 1h15m45s; mean 266.49 s/step; 3 steps / 13m19s remain.
+- Projected sampling end ~22:14 CST.
+- GPU 100%, observed draw 250.44 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D live checkpoint — 2026-11-15 22:04:53 CST:
+- Sampler reached 18/20 (90%) at 1h20m11s; mean 266.44 s/step; 2 steps / 8m52s remain.
+- Projected sampling end ~22:14 CST; VAE decode and file write follow.
+- GPU 100%, draw 245.28 W, VRAM 19404 MiB, 64 C. No OOM.
+
+2D live checkpoint — 2026-11-15 22:09:47 CST:
+- Sampler reached 19/20 (95%) at 1h24m38s; mean 266.80 s/step; final step estimated about 4m26s.
+- Sampling should complete near 22:14 CST; VAE decode and write follow.
+- GPU 100%, draw 249.93 W, VRAM 19404 MiB, 63 C. No OOM.
+
+2D run completed successfully — 2026-11-15 22:16 CST
+- Prompt ID: 6ed32790-6713-4674-ae97-e6eee8e9af34; sampler 20/20 in 1h29m05s; ComfyUI total execution 1h31m18s.
+- Original: output/video/lcz3045_2d_00001_.mp4; 12.25 s, 294 frames, 1344x768, 24 fps; 10,739,281 bytes; SHA-256 d0d44de62086ec03297a7dd894e65cd91c107510666add0962c56240128df8ef.
+- Final: output/video/lcz3045_2d_12s.mp4; 12.000 s, 288 frames, 1344x768, 24 fps; 16,498,783 bytes; SHA-256 7e45054751b328f8fa383d08fe96e052c05937c187e311663cfeb282e6fd8b4b. Verification PASS for dimensions, frame count, frame rate, duration.
+- Review contact sheet: docs/research/assets/minimax-h3-lcz3045/lcz3045-2d-contact-sheet.png (samples at 0, 2, 4, 6, 8, 10 s). Clear cel-shaded anime style and strong flame arcs; poses, faces and weapon details shift between sampled shots.
+- Telemetry window 20:44:16–22:15:36 (5,478 one-second samples): mean GPU draw 247.88 W; maximum 252.38 W; configured limit 250 W. Peak VRAM 19945 MiB; peak temperature 64 C. Host available RAM minimum 63.56 GiB; minimum free swap 7.63 GiB. No OOM.
+- Final video checksums for both styles are listed in docs/research/logs/17-video-manifest.sha256.

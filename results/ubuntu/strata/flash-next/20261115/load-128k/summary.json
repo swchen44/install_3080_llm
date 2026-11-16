@@ -1,0 +1,18 @@
+{
+  "samples": 49,
+  "gpu_samples": 49,
+  "ram_used_gib_peak": 40.902442932128906,
+  "swap_used_gib_peak": 0.00030517578125,
+  "vram_used_mib_avg": 2803.612244897959,
+  "vram_used_mib_peak": 19383.0,
+  "util_pct_avg": 2.020408163265306,
+  "util_pct_peak": 97.0,
+  "temp_c_avg": 30.06122448979592,
+  "temp_c_peak": 35.0,
+  "power_w_avg": 43.7769387755102,
+  "power_w_peak": 105.52,
+  "sm_mhz_avg": 801.4285714285714,
+  "sm_mhz_peak": 1995.0,
+  "memory_mhz_avg": 3654.5510204081634,
+  "memory_mhz_peak": 9251.0
+}

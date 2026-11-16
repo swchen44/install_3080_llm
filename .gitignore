@@ -1,0 +1,17 @@
+/local/
+/.agents/
+/skills-lock.json
+__pycache__/
+*.py[cod]
+*.gguf
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.mp4
+*.webm
+*.gif
+/docs/research/assets/
+.env
+.env.*

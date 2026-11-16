@@ -1,0 +1,9 @@
+{
+  "valid_n": 3,
+  "formal_n": 3,
+  "status": "complete",
+  "prefill_tps_median": 2144.8293226248343,
+  "decode_tps_median": 55.30830056604589,
+  "ttft_ms_median": 117405.15151,
+  "total_ms_median": 121882.73961800041
+}

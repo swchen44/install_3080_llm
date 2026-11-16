@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a1dd34-1905-79f2-94f1-ccd13115fe82"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Model metadata for `qwen3.8-27b-ud-q4_k_m` not found. Defaulting to fallback metadata; this can degrade performance and cause issues."}}
+{"type":"turn.started"}
+{"type":"error","message":"{\"error\":{\"code\":400,\"message\":\"request (6095 tokens) exceeds the available context size (4096 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":6095,\"n_ctx\":4096}}"}
+{"type":"turn.failed","error":{"message":"{\"error\":{\"code\":400,\"message\":\"request (6095 tokens) exceeds the available context size (4096 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":6095,\"n_ctx\":4096}}"}}

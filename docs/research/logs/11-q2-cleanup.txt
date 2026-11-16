@@ -1,0 +1,38 @@
+# Q2 cleanup record
+
+Date: 2026-11-15 (Asia/Taipei)
+Requested by user: remove Q2 models.
+
+## Before
+
+- Root filesystem: 43 GiB available (`/dev/nvme0n1p5`, 445G total, 379G used).
+- bartowski Flash-Next IQ2_XS:
+  - shard 1: 39,567,598,912 bytes
+  - shard 2: 38,169,583,872 bytes
+  - total: 77,737,182,784 bytes
+- ISTA-DASLab GSQ-RCO IQ2_XS:
+  - shard 1: 39,225,954,592 bytes
+  - shard 2: 28,800,138,432 bytes
+- IQ2-specific Strata packs:
+  - `local/model-data/packs/iq2_xs/dense.bin`: 1,538,035,200 bytes
+  - `local/ista-data/packs/iq2_xs/dense.bin`: 1,538,035,200 bytes
+- IQ3_S local shard 2 was a symlink to the ISTA IQ2_XS shard 2. Upstream fixed-revision SHA256 for the shared lookup shard: `316b46f3a2dbd68c900f43136ab9449f9dcc3725dfd8c794847c204bc161e113`.
+
+## Actions
+
+1. Verified the shared ISTA shard 2 SHA256 before moving it.
+2. Moved, without copying or modifying bytes, the shared shard to:
+   `~/Downloads/ai/models/llm/others/Qwen3.8-Flash-Next/shared/Qwen3.8-Flash-Next-GSQ-RCO-common-lookup-00002-of-00002.gguf`
+3. Repointed `local/ista-models/IQ3_S/Qwen3.8-Flash-Next-GSQ-RCO-IQ3_S-00002-of-00002.gguf` to the neutral shared path.
+4. Removed both bartowski IQ2_XS shards and its `.done` markers.
+5. Removed ISTA IQ2_XS shard 1, the IQ2_XS download directory and its markers/symlink folder. Kept no complete IQ2 model.
+6. Removed the two IQ2-only generated Strata packs at `local/model-data/packs/iq2_xs` and `local/ista-data/packs/iq2_xs`.
+7. Preserved model benchmark outputs, logs, checksum records, IQ3_S model shard 1, Q4 models, Dense model and all ComfyUI models.
+
+## After verification
+
+- Shared shard SHA256 after move: `316b46f3a2dbd68c900f43136ab9449f9dcc3725dfd8c794847c204bc161e113` (matches before and upstream).
+- IQ3_S shard 2 symlink resolves to the shared shard at the neutral path.
+- No Q2-named model files remain under `~/Downloads/ai/models/llm`.
+- Root filesystem: 155 GiB available (`/dev/nvme0n1p5`, 445G total, 268G used).
+- Estimated bytes released: 120,039,207,776 bytes = 120.04 GB = 111.82 GiB. `df` display rounded from 43 GiB to 155 GiB available.

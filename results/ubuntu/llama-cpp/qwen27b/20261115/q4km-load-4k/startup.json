@@ -1,0 +1,91 @@
+{
+  "started_at": "2026-11-15T10:57:30.270960+08:00",
+  "ended_at": "2026-11-15T10:57:33.846627+08:00",
+  "elapsed_s": 3.575676751001083,
+  "status": "ready",
+  "command": [
+    "/home/swchen/git/install_3080_llm/local/llama-cpp-b12375/bin/llama-server",
+    "--model",
+    "/home/swchen/Downloads/ai/models/llm/others/Qwen3.8-27B/Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "--ctx-size",
+    "4096",
+    "--gpu-layers",
+    "99",
+    "--threads",
+    "10",
+    "--threads-batch",
+    "10",
+    "--parallel",
+    "1",
+    "--cache-type-k",
+    "q8_0",
+    "--cache-type-v",
+    "q8_0",
+    "--flash-attn",
+    "on",
+    "--metrics",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8081",
+    "--jinja"
+  ],
+  "environment": {
+    "LD_LIBRARY_PATH": "/home/swchen/git/install_3080_llm/local/llama-cpp-b12375/cuda:/home/swchen/git/install_3080_llm/local/llama-cpp-b12375/bin"
+  },
+  "before": {
+    "time": "2026-11-15T10:57:30.310243+08:00",
+    "cpu_jiffies_total": 29580319,
+    "cpu_jiffies_idle": 28323523,
+    "cpu_mhz_avg": 1515.0421,
+    "ram_available_gib": 122.76764678955078,
+    "swap_used_gib": 0.5624847412109375,
+    "process": {
+      "pid": 39256,
+      "rss_gib": 0.020389556884765625,
+      "swap_gib": 0.0
+    },
+    "gpus": [
+      {
+        "index": 0.0,
+        "vram_used_mib": 123.0,
+        "vram_total_mib": 20480.0,
+        "util_pct": 0.0,
+        "temp_c": 29.0,
+        "power_w": 14.62,
+        "sm_mhz": 210.0,
+        "memory_mhz": 405.0,
+        "power_limit_w": 250.0
+      }
+    ]
+  },
+  "after": {
+    "time": "2026-11-15T10:57:33.885260+08:00",
+    "cpu_jiffies_total": 29587457,
+    "cpu_jiffies_idle": 28330242,
+    "cpu_mhz_avg": 1429.01285,
+    "ram_available_gib": 122.36251831054688,
+    "swap_used_gib": 0.5624847412109375,
+    "process": {
+      "pid": 39262,
+      "rss_gib": 1.2258758544921875,
+      "swap_gib": 0.0
+    },
+    "gpus": [
+      {
+        "index": 0.0,
+        "vram_used_mib": 15605.0,
+        "vram_total_mib": 20480.0,
+        "util_pct": 33.0,
+        "temp_c": 32.0,
+        "power_w": 100.18,
+        "sm_mhz": 1710.0,
+        "memory_mhz": 9251.0,
+        "power_limit_w": 250.0
+      }
+    ]
+  },
+  "process_pid": 39262,
+  "process_return_code": null,
+  "note": "Filesystem page cache may be warm; load startup is not a disk-cold result."
+}

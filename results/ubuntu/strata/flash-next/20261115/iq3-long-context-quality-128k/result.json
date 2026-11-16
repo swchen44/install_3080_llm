@@ -1,0 +1,91 @@
+{
+  "started_at": "2026-11-15T10:41:40.362734+08:00",
+  "model": "qwen3.8-flash-next-iq3_s",
+  "configured_context_tokens": 131072,
+  "target_prompt_tokens": 124518,
+  "actual_prompt_tokens": 124727,
+  "completion_tokens": 83,
+  "prompt_sha256": "53198a8c2ca03eb8d7816611509e7c32797baaec9e082a546ada0ac552d2d78b",
+  "answer": {
+    "rollback_ticket": "RB-7319",
+    "archive_region": "north-04",
+    "queue_limit": "163",
+    "canary_owner": "team-amber",
+    "schema_revision": "schema-28c",
+    "incident_checksum": "a91f-0c72"
+  },
+  "raw_content": "{\n  \"rollback_ticket\": \"RB-7319\",\n  \"archive_region\": \"north-04\",\n  \"queue_limit\": \"163\",\n  \"canary_owner\": \"team-amber\",\n  \"schema_revision\": \"schema-28c\",\n  \"incident_checksum\": \"a91f-0c72\"\n}",
+  "correct_by_key": {
+    "rollback_ticket": true,
+    "archive_region": true,
+    "queue_limit": true,
+    "canary_owner": true,
+    "schema_revision": true,
+    "incident_checksum": true
+  },
+  "score": 6,
+  "score_max": 6,
+  "parse_error": null,
+  "elapsed_ms": 58667.20095900018,
+  "calibration": [
+    {
+      "rows": 778,
+      "prompt_tokens": 63958,
+      "elapsed_ms": 29770.523380000668,
+      "usage": {
+        "prompt_tokens": 63958,
+        "completion_tokens": 1,
+        "total_tokens": 63959,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    },
+    {
+      "rows": 1515,
+      "prompt_tokens": 124729,
+      "elapsed_ms": 55765.747867000755,
+      "usage": {
+        "prompt_tokens": 124729,
+        "completion_tokens": 1,
+        "total_tokens": 124730,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      }
+    }
+  ],
+  "hardware_before": {
+    "gpu_csv": "250.00, 128.02, 51, 19542, 1965, 9251",
+    "meminfo": {
+      "MemAvailable": "72129844 kB",
+      "SwapTotal": "8388604 kB",
+      "SwapFree": "7796696 kB"
+    },
+    "time": "2026-11-15T10:41:40.388306+08:00"
+  },
+  "hardware_after": {
+    "gpu_csv": "250.00, 236.16, 58, 19570, 1950, 9251",
+    "meminfo": {
+      "MemAvailable": "69673136 kB",
+      "SwapTotal": "8388604 kB",
+      "SwapFree": "7796712 kB"
+    },
+    "time": "2026-11-15T10:42:39.081331+08:00"
+  },
+  "response_id": "chatcmpl-5951e1d74c3f4b9daab3fddc",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 124727,
+    "prompt_ms": 56431.3,
+    "prompt_per_token_ms": 0.452,
+    "prompt_per_second": 2210.2,
+    "predicted_n": 83,
+    "predicted_ms": 2137.5,
+    "predicted_per_token_ms": 25.753,
+    "predicted_per_second": 38.8,
+    "draft_n": 15,
+    "draft_n_accepted": 6
+  },
+  "finish_reason": "stop"
+}
