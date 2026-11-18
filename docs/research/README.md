@@ -9,6 +9,7 @@
 - [Pikafish 現有應用](pikafish-applications.md)：iPad、網頁、教學、複盤與開源整合案例。
 - [Hermes 與 Strata 內網部署](hermes-strata-20261118.md)：Qwen Flash、Hermes 與內網連線設定。
 - [Pi Coding Agent 連接 Strata](pi-agent-strata-20261118.md)：Pi 安裝、Responses API 設定及工具呼叫實測。
+- [視覺啟用與重啟 Runbook](vision-restart-runbook-20261119.md)：mmproj 讀圖權重、重啟指令、服務還原及 pi 對話接回方式。
 - [MiniMax H3 lcz.me 3045 實驗報告](minimax-h3-3080-lcz3045.html)：RTX 3080 20 GiB 的 H3 雙風格影片挑戰、工作流與實測紀錄。
 - [MiniMax H3 加速測試](minimax-h3-speed-canary-20261115.html)：論壇經驗及 RTX 3080 20 GiB 從短 canary 到 1344×768 全尺寸 Comfy Kitchen 對照。
 - [H3 加速測試原始紀錄](minimax-h3-speed-canary-20261115.md)：測試設定、速度、SSIM、影片雜湊及重現方法。
